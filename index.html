@@ -128,6 +128,7 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 a.vid{border-style:solid;color:#fff;background:var(--btn);border-color:var(--gild-dim);text-decoration:none}
 a.vid:hover{background:var(--btn-hi)}
 .post>div{min-width:0;overflow-wrap:anywhere}
+.news-msg a{color:var(--gild);font-weight:700;overflow-wrap:anywhere}
 .news-msg{margin:0;padding:20px;background:var(--panel);border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
 
 /* Stream-Plan */
@@ -451,6 +452,7 @@ footer a:hover{color:var(--text)}
 /* News kommen aus data/news.json (pflegt der tägliche Bot). Der Streamplan steht hier. */
 var NEWS = [];
 var NEWS_MAX = 30;
+var SITE_URL = "https://shillmer17-cloud.github.io/ratslegenden/";
 /* Streamplan: Wochentag 0 = Sonntag. Zeiten sind Platzhalter. */
 var PLAN = {
   1:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
@@ -507,6 +509,12 @@ function loadNews(){
       renderChips();renderNews();
     })
     .catch(function(){
+      if(location.protocol==="file:"){
+        /* Datei direkt vom PC geöffnet: Browser verbietet das Nachladen von news.json */
+        document.getElementById("newsList").innerHTML='<p class="news-msg">Du hast die Seite direkt als Datei vom PC geöffnet. So darf der Browser die News nicht laden. '+
+          'Öffne sie über die Internetadresse: <a href="'+SITE_URL+'">'+SITE_URL+'</a></p>';
+        return;
+      }
       newsMessage("Die News konnten gerade nicht geladen werden. Lade die Seite gleich noch einmal oder schau später wieder vorbei. Lok'tar!");
     });
 }
