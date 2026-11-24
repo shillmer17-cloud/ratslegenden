@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ratslegenden Stream-Seite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky Kopfleiste, Hero mit Live-Status, danach News, Stream-Plan, Gilde, Community. Eine dunkle Welt, Gold als Akzent, Blau-Grau als Fläche. */
+:root{
+  --ink:#0c0a0a;
+  --panel:#181313;
+  --panel-2:#231a19;
+  --line:#3a2b29;
+  --text:#ece4dc;
+  --muted:#a99d95;
+  --gold:#e5484d;
+  --gold-dim:#7d2226;
+  --live:#ff3b30;
+  --btn:#b3161d;
+  --btn-hi:#cf2229;
+  --iron:#8c7b6b;
+  --display:"Cinzel","Palatino Linotype",Georgia,serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--ink);color:var(--text);font:400 17px/1.6 var(--body)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);line-height:1.2;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.5rem,3vw,2rem);letter-spacing:.02em}
+section{padding:72px 0}
+.band{padding-top:80px}
+.eyebrow{font:600 .8rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.lead{color:var(--muted);max-width:62ch;margin:10px 0 0}
+
+/* Kopfleiste */
+header{position:sticky;top:0;z-index:10;background:rgba(12,10,10,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--btn)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;flex-wrap:wrap;padding:8px 0}
+.logo{font:700 1.15rem var(--display);text-decoration:none;letter-spacing:.06em;text-transform:uppercase}
+.logo span{color:var(--gold)}
+nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav a{display:block;padding:8px 12px;border-radius:6px;text-decoration:none;color:var(--muted);font-weight:600;font-size:.95rem}
+nav a:hover{color:var(--text);background:var(--panel)}
+nav a.cta{background:var(--btn);color:#fff}
+nav a.cta:hover{background:var(--btn-hi);color:#fff}
+
+/* Hero */
+.hero{position:relative;padding:72px 0 64px;background:
+  radial-gradient(900px 420px at 80% -10%,rgba(190,25,32,.32),transparent 70%),
+  radial-gradient(700px 400px at 0% 100%,rgba(120,60,20,.22),transparent 70%),var(--ink);
+  border-bottom:1px solid var(--line)}
+.hero::after{content:"";position:absolute;left:0;right:0;top:100%;height:16px;z-index:2;pointer-events:none;
+  background:conic-gradient(from -45deg at bottom,var(--btn) 90deg,transparent 0) 0 0/32px 100%}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem)}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p{color:var(--muted);max-width:52ch;margin:16px 0 0}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--panel);transition:background .15s,border-color .15s}
+.btn:hover{border-color:var(--gold-dim);background:var(--panel-2)}
+.btn.primary{background:var(--btn);border-color:var(--btn-hi);color:#fff}
+.btn.primary:hover{background:var(--btn-hi)}
+.status{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--btn);border-radius:10px;padding:22px}
+.pill{display:inline-flex;align-items:center;gap:8px;font:700 .78rem var(--body);letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:99px;background:var(--panel-2);color:var(--muted)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.pill.on{background:rgba(255,59,48,.15);color:#ff8a8e}
+.pill.on i{background:var(--live);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.status h3{font-size:1.15rem;margin:14px 0 6px}
+.status p{margin:0;font-size:.95rem}
+.next{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:.95rem;color:var(--muted)}
+.next b{color:var(--text)}
+
+/* Social */
+.socials{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+.social{display:flex;flex-direction:column;gap:2px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:transform .15s,border-color .15s}
+.social:hover{transform:translateY(-2px);border-color:var(--gold-dim)}
+.social b{font-size:1rem}
+.social small{color:var(--muted)}
+
+/* News */
+.head-row{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:600 .88rem var(--body);padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip:hover{color:var(--text)}
+.chip[aria-pressed="true"]{background:var(--btn);border-color:var(--btn-hi);color:#fff}
+.news{display:grid;gap:14px}
+.post{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.post.today{border-color:var(--gold-dim);background:linear-gradient(135deg,rgba(190,25,32,.14),var(--panel) 60%)}
+.date{font-family:var(--display);text-align:center;border-right:1px solid var(--line);padding-right:16px}
+.date b{display:block;font-size:2rem;line-height:1;color:var(--gold)}
+.date span{font:600 .75rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tag{display:inline-block;font:700 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.post h3{font-size:1.15rem;margin-bottom:6px}
+.post p{margin:0;color:var(--muted)}
+.hint{margin-top:18px;font-size:.9rem;color:var(--muted)}
+.src{display:inline-block;margin-top:8px;font-size:.82rem;color:var(--muted);text-underline-offset:3px}
+.src:hover{color:var(--gold)}
+.post>div{min-width:0;overflow-wrap:anywhere}
+.news-msg{margin:0;padding:20px;background:var(--panel);border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
+
+/* Stream-Plan */
+.band{background:var(--panel);border-block:1px solid var(--line)}
+.plan{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:26px}
+.day{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px;min-height:112px}
+.day.now{border-color:var(--gold)}
+.day h3{font:700 .85rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.day b{display:block;margin-top:8px;font-size:1.05rem}
+.day span{display:block;color:var(--muted);font-size:.9rem;margin-top:2px}
+.day.off b{color:var(--muted);font-weight:400}
+
+/* Gilde */
+.guild{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+.card{border-top:3px solid var(--btn);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px}
+.card h3{font-size:1.2rem;margin-bottom:14px}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ticks li{display:grid;grid-template-columns:22px 1fr;gap:8px}
+.ticks li::before{content:"";width:10px;height:10px;margin-top:8px;border:2px solid var(--gold);transform:rotate(45deg)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:0 0 20px}
+.facts div{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.facts dt{font:600 .75rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:2px 0 0;font-weight:700}
+
+/* Kooperationen und Setup */
+.partners{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.partner{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;min-height:132px;display:flex;flex-direction:column;gap:6px}
+.partner .mark{width:44px;height:44px;border-radius:10px;border:1px dashed var(--gold-dim);display:grid;place-items:center;font:700 .8rem var(--display);color:var(--gold)}
+.partner b{margin-top:6px}
+.partner small{color:var(--muted)}
+.collab{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;margin-top:28px}
+.mail{display:inline-block;margin-top:6px;font:700 1.05rem var(--body);color:var(--gold);word-break:break-all}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+.spec{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:16px}
+.spec dt{font:600 .75rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.spec dd{margin:4px 0 0;font-weight:700}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.stat b{display:block;font:700 1.6rem var(--display);color:var(--gold)}
+.stat span{color:var(--muted);font-size:.9rem}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.92rem}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px}
+footer h3{font:700 .8rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin-bottom:10px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--text)}
+.disc{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:.85rem}
+.ph{background:rgba(190,25,32,.2);color:var(--gold);padding:0 5px;border-radius:4px}
+
+@media (max-width:860px){
+  .hero-grid,.guild,.foot,.collab{grid-template-columns:1fr}
+  .partners,.statrow{grid-template-columns:repeat(2,1fr)}
+  .specs{grid-template-columns:repeat(2,1fr)}
+  .socials{grid-template-columns:repeat(2,1fr)}
+  .plan{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){
+  .post{grid-template-columns:1fr}
+  .date{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;text-align:left;display:flex;gap:10px;align-items:baseline}
+  .facts,.specs,.partners,.statrow{grid-template-columns:1fr}
+  section{padding:48px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#start"><span class="ph">DEIN NAME</span> · WoW Forever</a>
+    <nav aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#start">Start</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#stream">Stream</a></li>
+        <li><a href="#gilde">Gilde</a></li>
+        <li><a href="#kooperation">Kooperation</a></li>
+        <li><a href="#setup">Setup</a></li>
+        <li><a class="cta" href="#gilde">Jetzt bewerben</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero" id="start">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Für die Horde · WoW Forever auf Deutsch</p>
+        <h1>Blut und Donner: Täglich neu aus <em>Azeroth</em></h1>
+        <p>Frische Updates zu WoW Forever, meine Streamzeiten und der direkte Weg in unsere Horde-Gilde Die Ratslegenden. Lok'tar Ogar!</p>
+        <div class="btns">
+          <a class="btn primary" href="#">Auf Twitch zuschauen</a>
+          <a class="btn" href="#gilde">Der Gilde beitreten</a>
+        </div>
+      </div>
+      <aside class="status" aria-label="Stream-Status">
+        <span class="pill" id="livepill"><i></i><span id="livetext">Gerade offline</span></span>
+        <h3 id="statusTitle">Nächster Stream</h3>
+        <p id="statusText">Wird berechnet …</p>
+        <div class="next"><b>Heute:</b> <span id="todayLine">–</span></div>
+      </aside>
+    </div>
+
+    <div class="socials" aria-label="Meine Kanäle">
+      <a class="social" href="#"><b>Twitch</b><small>Live-Streams</small></a>
+      <a class="social" href="#"><b>TikTok</b><small>Tägliche Kurzvideos</small></a>
+      <a class="social" href="#"><b>YouTube</b><small>Alle Streams uncut</small></a>
+      <a class="social" href="#"><b>Discord</b><small>Community und Gilde</small></a>
+      <a class="social" href="#"><b>Instagram</b><small>Reels und Stories</small></a>
+    </div>
+  </div>
+</div>
+
+<section id="news">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <p class="eyebrow">Täglich aktualisiert</p>
+        <h2>News aus WoW Forever</h2>
+      </div>
+      <div class="chips" role="group" aria-label="News filtern" id="chips"></div>
+    </div>
+    <div class="news" id="newsList"></div>
+    <p class="hint">Neue Meldungen kommen jeden Tag automatisch dazu, jeweils mit Link zur Quelle.</p>
+  </div>
+</section>
+
+<section id="stream" class="band">
+  <div class="wrap">
+    <p class="eyebrow">Streamplan</p>
+    <h2>Wann ich live bin</h2>
+    <p class="lead">Montag bis Freitag live, alle Zeiten in deutscher Zeit. Je nach Tag endet der Stream um 12 oder 14 Uhr.</p>
+    <p class="lead">Verpasst? Alle Streams gibt es ungeschnitten auf YouTube, jederzeit zum Nachschauen.</p>
+    <div class="btns"><a class="btn" href="#">Alle Streams auf YouTube</a></div>
+    <div class="plan" id="plan"></div>
+  </div>
+</section>
+
+<section id="gilde">
+  <div class="wrap">
+    <p class="eyebrow">Gilde</p>
+    <h2>Die Ratslegenden suchen neue Krieger der Horde</h2>
+    <p class="lead">Die Ratslegenden sind eine deutschsprachige Horde-Gilde für den Feierabend: Gespielt wird nach der Arbeit, locker und familiär. Man hilft sich gegenseitig und niemand wird zurückgelassen.</p>
+    <div class="guild">
+      <div class="card">
+        <h3>Was dich erwartet</h3>
+        <dl class="facts">
+          <div><dt>Fraktion</dt><dd>Horde</dd></div>
+          <div><dt>Spielzeit</dt><dd>Feierabend, abends</dd></div>
+          <div><dt>Stimmung</dt><dd>Casual, fun, familiär</dd></div>
+          <div><dt>Willkommen</dt><dd>Anfänger bis Veteranen</dd></div>
+        </dl>
+        <ul class="ticks">
+          <li>Kein Zeitdruck: Spiel so viel, wie dein Feierabend hergibt</li>
+          <li>Main-Charaktere gehören in die Gilde, Twinks in die Community</li>
+          <li>Familiäre Atmosphäre: freundlicher Umgang und viel Humor</li>
+          <li>Hilfsbereite Mitglieder beim Leveln, in Dungeons und bei jeder Frage</li>
+          <li>Neueinsteiger werden an die Hand genommen, Veteranen teilen ihr Wissen</li>
+          <li>Gemeinsame Abende mit Voice im Discord</li>
+          <li>Eigenes Gilden-Addon für den Überblick</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>So bewirbst du dich</h3>
+        <ul class="ticks">
+          <li>Tritt dem Discord bei und stell dich im Bewerbungskanal vor</li>
+          <li>Erzähl kurz von dir: Klasse deines Mains, Spielzeiten und ob du neu oder alter Hase bist</li>
+          <li>Deine Twinks laufen über die Community, dort sind sie genauso willkommen</li>
+          <li>Spiel ein paar Runden mit uns und schau, ob es passt</li>
+        </ul>
+        <div class="btns">
+          <a class="btn primary" href="#">Zum Discord</a>
+          <a class="btn" href="#">Fragen im Chat stellen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="kooperation" class="band">
+  <div class="wrap">
+    <p class="eyebrow">Kooperationen</p>
+    <h2>Zusammenarbeit und Partner</h2>
+    <p class="lead">Du möchtest mit mir zusammenarbeiten? Hier stelle ich meine bisherigen Partner vor und zeige dir, wie du mich erreichst.</p>
+    <div class="partners">
+      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 1</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
+      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 2</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
+      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 3</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
+      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 4</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
+    </div>
+    <div class="collab">
+      <div class="card">
+        <h3>Anfrage stellen</h3>
+        <ul class="ticks">
+          <li>Schreib mir kurz, wer ihr seid und was ihr vorhabt</li>
+          <li>Nenne dein Angebot, den Zeitraum und was du dir von mir wünschst</li>
+          <li>Ich melde mich in der Regel innerhalb weniger Tage zurück</li>
+        </ul>
+        <p>Kontakt für Kooperationen:<br><span class="mail ph">deine@mail.de</span></p>
+      </div>
+      <div class="card">
+        <h3>Reichweite im Überblick</h3>
+        <div class="statrow" style="grid-template-columns:repeat(2,1fr);margin:0">
+          <div class="stat"><b class="ph">0</b><span>Twitch-Follower</span></div>
+          <div class="stat"><b class="ph">0</b><span>TikTok-Follower</span></div>
+          <div class="stat"><b class="ph">0</b><span>YouTube-Abos</span></div>
+          <div class="stat"><b class="ph">0</b><span>Discord-Mitglieder</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="wrap">
+    <p class="eyebrow">Mein Setup</p>
+    <h2>Die Technik hinter dem Stream</h2>
+    <p class="lead">Mit diesem PC und dieser Ausrüstung streame ich WoW Forever.</p>
+    <dl class="specs">
+      <div class="spec"><dt>Prozessor</dt><dd class="ph">CPU</dd></div>
+      <div class="spec"><dt>Grafikkarte</dt><dd class="ph">GPU</dd></div>
+      <div class="spec"><dt>Arbeitsspeicher</dt><dd class="ph">RAM</dd></div>
+      <div class="spec"><dt>Monitor</dt><dd class="ph">Modell</dd></div>
+      <div class="spec"><dt>Mikrofon</dt><dd class="ph">Modell</dd></div>
+      <div class="spec"><dt>Kamera</dt><dd class="ph">Modell</dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h3>Über diese Seite</h3>
+        <p>Tägliche WoW-Forever-Updates, Stream-Infos und die Gilde Die Ratslegenden an einem Ort.</p>
+      </div>
+      <div>
+        <h3>Kanäle</h3>
+        <ul><li><a href="#">Twitch</a></li><li><a href="#">TikTok</a></li><li><a href="#">YouTube</a></li><li><a href="#">Discord</a></li></ul>
+      </div>
+      <div>
+        <h3>Rechtliches</h3>
+        <ul><li><a href="#">Impressum</a></li><li><a href="#">Datenschutz</a></li></ul>
+      </div>
+    </div>
+    <p class="disc">Für die Horde! Inoffizielles Fan-Angebot. Diese Seite steht in keiner Verbindung zu Blizzard Entertainment. World of Warcraft ist eine Marke von Blizzard Entertainment.</p>
+  </div>
+</footer>
+
+<script>
+/* News kommen aus data/news.json (pflegt der tägliche Bot). Der Streamplan steht hier. */
+var NEWS = [];
+var NEWS_MAX = 30;
+/* Streamplan: Wochentag 0 = Sonntag. Zeiten sind Platzhalter. */
+var PLAN = {
+  1:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
+  2:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
+  3:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
+  4:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
+  5:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
+  6:{t:"Pause",off:true}, 0:{t:"Pause",off:true}
+};
+var DAYS = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+var ORDER = [1,2,3,4,5,6,0];
+var MON = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function isoToday(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+
+/* News */
+var filter="Alle";
+function renderNews(){
+  var today=isoToday(), list=document.getElementById("newsList");
+  list.innerHTML=NEWS.filter(function(n){return filter==="Alle"||n.tag===filter})
+    .sort(function(a,b){return a.date<b.date?1:-1})
+    .map(function(n){
+      var p=n.date.split("-");
+      var src=safeUrl(n.source);
+      return '<article class="post'+(n.date===today?' today':'')+'"><div class="date"><b>'+parseInt(p[2],10)+'</b><span>'+MON[parseInt(p[1],10)-1]+'</span></div><div><span class="tag">'+esc(n.tag)+(n.date===today?' · Heute':'')+'</span><h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+(src?'<a class="src" href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">Quelle</a>':'')+'</div></article>';
+    }).join("");
+}
+/* Nur echte http(s)-Links als Quelle zulassen */
+function safeUrl(u){
+  if(!u) return "";
+  try{var x=new URL(String(u));return (x.protocol==="https:"||x.protocol==="http:")?x.href:""}catch(e){return ""}
+}
+function newsMessage(msg){
+  document.getElementById("newsList").innerHTML='<p class="news-msg">'+esc(msg)+'</p>';
+}
+function loadNews(){
+  newsMessage("News werden geladen …");
+  fetch("data/news.json",{cache:"no-cache"})
+    .then(function(r){if(!r.ok) throw new Error("HTTP "+r.status);return r.json()})
+    .then(function(data){
+      if(!Array.isArray(data)) throw new Error("Kein Array");
+      NEWS=data.filter(function(n){return n&&/^\d{4}-\d{2}-\d{2}$/.test(n.date)&&n.title})
+        .sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0})
+        .slice(0,NEWS_MAX);
+      if(!NEWS.length){newsMessage("Noch keine News da. Schau morgen wieder vorbei!");return}
+      renderChips();renderNews();
+    })
+    .catch(function(){
+      newsMessage("Die News konnten gerade nicht geladen werden. Lade die Seite gleich noch einmal oder schau später wieder vorbei. Lok'tar!");
+    });
+}
+function renderChips(){
+  var tags=["Alle"].concat(NEWS.map(function(n){return n.tag}).filter(function(v,i,a){return a.indexOf(v)===i}));
+  var box=document.getElementById("chips");
+  box.innerHTML=tags.map(function(t){return '<button class="chip" type="button" aria-pressed="'+(t===filter)+'" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join("");
+  box.onclick=function(e){var b=e.target.closest("button");if(!b)return;filter=b.getAttribute("data-t");renderChips();renderNews()};
+}
+
+/* Streamplan und Status */
+function renderPlan(){
+  var td=new Date().getDay();
+  document.getElementById("plan").innerHTML=ORDER.map(function(d){
+    var p=PLAN[d];
+    return '<div class="day'+(p.off?' off':'')+(d===td?' now':'')+'"><h3>'+DAYS[d].slice(0,2)+(d===td?' · heute':'')+'</h3><b>'+(p.off?p.t:p.label)+'</b>'+(p.off?'':'<span>'+esc(p.what)+'</span>')+'</div>';
+  }).join("");
+}
+function renderStatus(){
+  var now=new Date(), td=now.getDay(), mins=now.getHours()*60+now.getMinutes();
+  function m(t){var a=t.split(":");return +a[0]*60+ +a[1]}
+  var p=PLAN[td], pill=document.getElementById("livepill");
+  var live=!p.off && mins>=m(p.s) && mins<m(p.e);
+  pill.className="pill"+(live?" on":"");
+  document.getElementById("livetext").textContent=live?"Jetzt live":"Gerade offline";
+  document.getElementById("todayLine").textContent=p.off?"Kein Stream":p.what+", "+p.label;
+  var t=document.getElementById("statusTitle"), x=document.getElementById("statusText");
+  if(live){t.textContent="Der Stream läuft";x.textContent="Schau auf Twitch vorbei und schreib in den Chat."}
+  else{
+    for(var i=0;i<8;i++){
+      var d=(td+i)%7, q=PLAN[d];
+      if(q.off) continue;
+      if(i===0 && mins>=m(q.s)) continue;
+      t.textContent="Nächster Stream";
+      x.textContent=(i===0?"Heute":i===1?"Morgen":DAYS[d])+" ab "+q.s.replace(/^0/,"")+" Uhr: "+q.what;
+      break;
+    }
+  }
+}
+loadNews();renderPlan();renderStatus();
+</script>
+</body>
+</html>

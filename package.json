@@ -1,0 +1,9 @@
+{
+  "name": "ratslegenden-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "check": "node scripts/check-news.mjs"
+  }
+}

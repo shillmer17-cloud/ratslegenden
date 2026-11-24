@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-11-24",
+    "tag": "Stream",
+    "title": "Beispiel: Heute Abend Dungeon-Runs mit der Gilde",
+    "text": "Hier steht später dein Tagesupdate: was heute im Stream passiert, was neu in WoW Forever ist, wo ihr euch trefft.",
+    "source": ""
+  },
+  {
+    "date": "2026-11-23",
+    "tag": "Gilde",
+    "title": "Beispiel: Neues vom Gilden-Addon",
+    "text": "Kurzer Bericht über neue Funktionen oder Änderungen, die die Gilde betreffen.",
+    "source": ""
+  },
+  {
+    "date": "2026-11-22",
+    "tag": "Forever",
+    "title": "Beispiel: Das Wichtigste der Woche in WoW Forever",
+    "text": "Eine Zusammenfassung der Neuigkeiten, die deine Zuschauer kennen sollten.",
+    "source": ""
+  },
+  {
+    "date": "2026-11-21",
+    "tag": "Video",
+    "title": "Beispiel: Neues Kurzvideo auf TikTok",
+    "text": "Verweis auf das heutige Video mit Link zum Kanal.",
+    "source": ""
+  }
+]
