@@ -40,5 +40,12 @@
     "title": "Blizzard stoppt Layer-Swap-Addons",
     "text": "Schluss mit gezieltem Layer-Hopping: Wie PC Games berichtet, liefern die Realm-Schnittstellen für Addons in WoW Forever jetzt nur noch leere Werte, und Addons wie „Layer-Swap“ verlieren damit ihre wichtigste Funktion. Bisher wurden solche Tools genutzt, um gezielt bestimmte Gegner, Erz oder Kräuter zu farmen. Per Gruppeneinladung lässt sich der Layer aber weiterhin wechseln. Unser Gilden-Addon ist davon nicht betroffen, es nutzt keine Realm-Daten.",
     "source": "https://www.pcgames.de/World-of-Warcraft-Spiel-42971/News/Blizzard-pulls-the-plug-Popular-WoW-addons-lose-key-features-1560857/"
+  },
+  {
+    "date": "2026-11-24",
+    "tag": "Forever",
+    "title": "Lockboxen: Reinspähen soll zurückkommen",
+    "text": "Blizzard hat am Wochenende abgeschaltet, dass man vor dem Looten in Lockboxen reinschauen kann. Damit sollte ein Exploit gestoppt werden, bei dem der Inhalt je nach Betrachter unterschiedlich ausfiel. Laut Community Manager Kaivax im offiziellen Forum ist das aber nur eine Notlösung: An einem richtigen Fix, der Reinschauen und teilweises Looten wieder erlaubt, wird gearbeitet. Einen Termin gibt es noch nicht, Schurken müssen sich also noch etwas gedulden.",
+    "source": "https://us.forums.blizzard.com/en/wow/t/lockbox-exploit-and-economy-hold-heuristic/2426335/4"
   }
 ]
