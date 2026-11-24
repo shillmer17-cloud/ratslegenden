@@ -132,6 +132,10 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 .partner .mark{width:44px;height:44px;border-radius:10px;border:1px dashed var(--gold-dim);display:grid;place-items:center;font:700 .8rem var(--display);color:var(--gold)}
 .partner b{margin-top:6px}
 .partner small{color:var(--muted)}
+a.partner{text-decoration:none;transition:transform .15s,border-color .15s}
+a.partner:hover{transform:translateY(-2px);border-color:var(--gold-dim)}
+.code{font-weight:700;color:var(--gold);letter-spacing:.06em}
+.ad{margin-top:auto;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .collab{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;margin-top:28px}
 .mail{display:inline-block;margin-top:6px;font:700 1.05rem var(--body);color:var(--gold);word-break:break-all}
 .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
@@ -289,10 +293,12 @@ footer a:hover{color:var(--text)}
     <h2>Zusammenarbeit und Partner</h2>
     <p class="lead">Du möchtest mit mir zusammenarbeiten? Hier stelle ich meine bisherigen Partner vor und zeige dir, wie du mich erreichst.</p>
     <div class="partners">
-      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 1</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
-      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 2</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
-      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 3</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
-      <div class="partner"><span class="mark">Logo</span><b class="ph">Partner 4</b><small>Kurze Beschreibung der Zusammenarbeit</small></div>
+      <a class="partner" href="https://www.kissmecoffee.de/#EVIL10" target="_blank" rel="sponsored noopener">
+        <span class="mark">KMC</span>
+        <b>Kiss Me Coffee</b>
+        <small>Mit dem Code <span class="code">EVIL10</span> bekommst du 10 % Rabatt auf deine Bestellung.</small>
+        <span class="ad">Anzeige · Affiliate-Link</span>
+      </a>
     </div>
     <div class="collab">
       <div class="card">
@@ -302,7 +308,7 @@ footer a:hover{color:var(--text)}
           <li>Nenne dein Angebot, den Zeitraum und was du dir von mir wünschst</li>
           <li>Ich melde mich in der Regel innerhalb weniger Tage zurück</li>
         </ul>
-        <p>Kontakt für Kooperationen:<br><span class="mail ph">deine@mail.de</span></p>
+        <p>Kontakt für Kooperationen:<br><a class="mail" href="mailto:spohle99@gmail.com">spohle99@gmail.com</a></p>
       </div>
       <div class="card">
         <h3>Reichweite im Überblick</h3>
