@@ -20,6 +20,9 @@
   --btn:#b3161d;
   --btn-hi:#cf2229;
   --iron:#8c7b6b;
+  --gild:#e3b25a;
+  --gild-hi:#ffd98a;
+  --gild-dim:#6e5222;
   --display:"Cinzel","Palatino Linotype",Georgia,serif;
   --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
   color-scheme:dark;
@@ -35,14 +38,19 @@ h1,h2,h3{font-family:var(--display);line-height:1.2;text-wrap:balance;margin:0}
 h2{font-size:clamp(1.5rem,3vw,2rem);letter-spacing:.02em}
 section{padding:72px 0}
 .band{padding-top:80px}
-.eyebrow{font:600 .8rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.eyebrow{display:flex;align-items:center;gap:10px;font:600 .8rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gild);margin:0 0 12px}
+.eyebrow::before{content:"";width:8px;height:8px;flex:none;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 10px rgba(229,72,77,.8)}
+/* Ornament unter Abschnittsüberschriften: Goldlinie mit Raute */
+section h2::after{content:"";display:block;width:160px;height:12px;margin-top:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='12'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop offset='0' stop-color='%23e3b25a'/%3E%3Cstop offset='1' stop-color='%23e3b25a' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M6 0l6 6-6 6-6-6z' fill='%23e3b25a'/%3E%3Crect x='18' y='5' width='142' height='2' fill='url(%23g)'/%3E%3C/svg%3E") no-repeat}
+.gold{background:linear-gradient(180deg,var(--gild-hi),var(--gild) 55%,#b9822f);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lead{color:var(--muted);max-width:62ch;margin:10px 0 0}
 
 /* Kopfleiste */
-header{position:sticky;top:0;z-index:10;background:rgba(12,10,10,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--btn)}
+header{position:sticky;top:0;z-index:10;background:rgba(12,10,10,.92);backdrop-filter:blur(8px);border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg,var(--btn),var(--gild) 50%,var(--btn)) 1}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;flex-wrap:wrap;padding:8px 0}
 .logo{font:700 1.15rem var(--display);text-decoration:none;letter-spacing:.06em;text-transform:uppercase}
-.logo span{color:var(--gold)}
+.logo span{background:linear-gradient(180deg,var(--gild-hi),var(--gild));-webkit-background-clip:text;background-clip:text;color:transparent}
 nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 nav a{display:block;padding:8px 12px;border-radius:6px;text-decoration:none;color:var(--muted);font-weight:600;font-size:.95rem}
 nav a:hover{color:var(--text);background:var(--panel)}
@@ -52,20 +60,27 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 /* Hero */
 .hero{position:relative;padding:72px 0 64px;background:
   radial-gradient(900px 420px at 80% -10%,rgba(190,25,32,.32),transparent 70%),
+  radial-gradient(600px 380px at 78% 55%,rgba(227,178,90,.10),transparent 70%),
   radial-gradient(700px 400px at 0% 100%,rgba(120,60,20,.22),transparent 70%),var(--ink);
   border-bottom:1px solid var(--line)}
 .hero::after{content:"";position:absolute;left:0;right:0;top:100%;height:16px;z-index:2;pointer-events:none;
   background:conic-gradient(from -45deg at bottom,var(--btn) 90deg,transparent 0) 0 0/32px 100%}
-.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center}
+.hero-art{position:relative;display:grid;place-items:center}
+.hero-art::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(227,178,90,.35),rgba(190,25,32,.25) 45%,transparent 70%);filter:blur(30px)}
+.hero-art img{position:relative;width:100%;max-width:470px;height:auto;filter:drop-shadow(0 18px 40px rgba(0,0,0,.7));animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.hero .status{margin-top:30px;max-width:470px}
 .hero h1{font-size:clamp(2rem,5vw,3.4rem)}
-.hero h1 em{font-style:normal;color:var(--gold)}
+.hero h1 em{font-style:normal;background:linear-gradient(180deg,var(--gild-hi),var(--gild) 55%,#b9822f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(227,178,90,.35))}
 .hero p{color:var(--muted);max-width:52ch;margin:16px 0 0}
+.hero p.eyebrow{max-width:none;margin:0 0 12px}
 .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--panel);transition:background .15s,border-color .15s}
 .btn:hover{border-color:var(--gold-dim);background:var(--panel-2)}
-.btn.primary{background:var(--btn);border-color:var(--btn-hi);color:#fff}
-.btn.primary:hover{background:var(--btn-hi)}
-.status{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--btn);border-radius:10px;padding:22px}
+.btn.primary{background:linear-gradient(180deg,var(--btn-hi),var(--btn));border-color:var(--gild-dim);color:#fff;box-shadow:0 6px 20px rgba(179,22,29,.35),inset 0 1px 0 rgba(255,217,138,.25)}
+.btn.primary:hover{background:var(--btn-hi);border-color:var(--gild);box-shadow:0 8px 26px rgba(207,34,41,.5)}
+.status{background:linear-gradient(160deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-top:3px solid var(--gild);border-radius:10px;padding:22px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
 .pill{display:inline-flex;align-items:center;gap:8px;font:700 .78rem var(--body);letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:99px;background:var(--panel-2);color:var(--muted)}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
 .pill.on{background:rgba(255,59,48,.15);color:#ff8a8e}
@@ -78,8 +93,10 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 
 /* Social */
 .socials{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
-.social{display:flex;flex-direction:column;gap:2px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:transform .15s,border-color .15s}
-.social:hover{transform:translateY(-2px);border-color:var(--gold-dim)}
+.social{display:grid;grid-template-columns:40px 1fr;column-gap:12px;align-items:center;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:transform .15s,border-color .15s,box-shadow .15s}
+.social .ico{grid-row:span 2;width:40px;height:40px;padding:9px;border-radius:50%;fill:var(--gild);background:rgba(227,178,90,.08);border:1px solid var(--gild-dim);transition:fill .15s,background .15s}
+.social:hover .ico{fill:#fff;background:var(--btn)}
+.social:hover{transform:translateY(-2px);border-color:var(--gild-dim);box-shadow:0 8px 24px rgba(227,178,90,.12)}
 .social b{font-size:1rem}
 .social small{color:var(--muted)}
 
@@ -88,12 +105,15 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font:600 .88rem var(--body);padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
 .chip:hover{color:var(--text)}
-.chip[aria-pressed="true"]{background:var(--btn);border-color:var(--btn-hi);color:#fff}
+.chip[aria-pressed="true"]{background:var(--btn);border-color:var(--gild-dim);color:#fff;box-shadow:0 0 14px rgba(179,22,29,.45)}
+.chip:hover{border-color:var(--gild-dim)}
 .news{display:grid;gap:14px}
-.post{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
-.post.today{border-color:var(--gold-dim);background:linear-gradient(135deg,rgba(190,25,32,.14),var(--panel) 60%)}
+.post{position:relative;display:grid;grid-template-columns:96px 1fr;gap:20px;padding:20px 20px 20px 24px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .15s}
+.post::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gild),var(--btn))}
+.post:hover{border-color:var(--gild-dim)}
+.post.today{border-color:var(--gold-dim);background:linear-gradient(135deg,rgba(190,25,32,.18),var(--panel) 60%);box-shadow:0 0 0 1px rgba(227,178,90,.12),0 10px 30px rgba(190,25,32,.15)}
 .date{font-family:var(--display);text-align:center;border-right:1px solid var(--line);padding-right:16px}
-.date b{display:block;font-size:2rem;line-height:1;color:var(--gold)}
+.date b{display:block;font-size:2rem;line-height:1;background:linear-gradient(180deg,var(--gild-hi),var(--gild));-webkit-background-clip:text;background-clip:text;color:transparent}
 .date span{font:600 .75rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .tag{display:inline-block;font:700 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .post h3{font-size:1.15rem;margin-bottom:6px}
@@ -105,10 +125,14 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 .news-msg{margin:0;padding:20px;background:var(--panel);border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
 
 /* Stream-Plan */
-.band{background:var(--panel);border-block:1px solid var(--line)}
+.band{position:relative;background:linear-gradient(180deg,var(--panel),#140f0f);border-block:1px solid var(--line)}
+.band::before{content:"";position:absolute;left:50%;top:-7px;width:12px;height:12px;margin-left:-6px;background:var(--gild);transform:rotate(45deg);box-shadow:0 0 14px rgba(227,178,90,.6)}
+.stream-top{display:grid;grid-template-columns:1fr 300px;gap:36px;align-items:center}
+.stream-top img{width:100%;height:auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.6))}
 .plan{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:26px}
 .day{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px;min-height:112px}
-.day.now{border-color:var(--gold)}
+.day.now{border-color:var(--gild);box-shadow:0 0 0 1px var(--gild-dim),0 0 22px rgba(227,178,90,.18)}
+.day.now h3{color:var(--gild)}
 .day h3{font:700 .85rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .day b{display:block;margin-top:8px;font-size:1.05rem}
 .day span{display:block;color:var(--muted);font-size:.9rem;margin-top:2px}
@@ -116,11 +140,12 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 
 /* Gilde */
 .guild{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
-.card{border-top:3px solid var(--btn);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px;overflow:hidden}
+.card::before,.feat::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--btn),var(--gild),var(--btn))}
 .card h3{font-size:1.2rem;margin-bottom:14px}
 .ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .ticks li{display:grid;grid-template-columns:22px 1fr;gap:8px}
-.ticks li::before{content:"";width:10px;height:10px;margin-top:8px;border:2px solid var(--gold);transform:rotate(45deg)}
+.ticks li::before{content:"";width:10px;height:10px;margin-top:8px;border:2px solid var(--gild);background:rgba(229,72,77,.5);transform:rotate(45deg)}
 .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:0 0 20px}
 .facts div{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
 .facts dt{font:600 .75rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -129,19 +154,22 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 /* Kooperationen und Setup */
 .partners{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
 .partner{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;min-height:132px;display:flex;flex-direction:column;gap:6px}
+.partner .plogo{width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 2px var(--gild-dim),0 0 24px rgba(229,72,77,.35)}
 .partner .mark{width:44px;height:44px;border-radius:10px;border:1px dashed var(--gold-dim);display:grid;place-items:center;font:700 .8rem var(--display);color:var(--gold)}
 .partner b{margin-top:6px}
 .partner small{color:var(--muted)}
 /* Gilden-Addon */
 .addon-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
 .features{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
-.feat{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--btn);border-radius:12px;padding:18px 18px 20px}
+.feat{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:21px 18px 20px;overflow:hidden;transition:transform .15s,border-color .15s,box-shadow .15s}
+.feat:hover{transform:translateY(-3px);border-color:var(--gild-dim);box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.feat h3{color:var(--gild-hi)}
 .feat h3{font-size:1.02rem;margin-bottom:6px}
 .feat p{margin:0;color:var(--muted);font-size:.95rem}
 .addon-more{margin-top:18px;color:var(--muted);font-size:.95rem;max-width:80ch}
 .addon-more b{color:var(--text);font-weight:600}
 a.partner{text-decoration:none;transition:transform .15s,border-color .15s}
-a.partner:hover{transform:translateY(-2px);border-color:var(--gold-dim)}
+a.partner:hover{transform:translateY(-2px);border-color:var(--gild-dim);box-shadow:0 10px 26px rgba(229,72,77,.15)}
 .code{font-weight:700;color:var(--gold);letter-spacing:.06em}
 .ad{margin-top:auto;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .collab{display:grid;grid-template-columns:minmax(0,640px);gap:28px;margin-top:28px}
@@ -149,14 +177,15 @@ a.partner:hover{transform:translateY(-2px);border-color:var(--gold-dim)}
 .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
 .spec{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:16px}
 .spec dt{font:600 .75rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.spec dd{margin:4px 0 0;font-weight:700}
+.spec dd{margin:4px 0 0;font-weight:700;color:var(--gild-hi)}
+.spec{border-left:3px solid var(--gild-dim)}
 .statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
 .stat b{display:block;font:700 1.6rem var(--display);color:var(--gold)}
 .stat span{color:var(--muted);font-size:.9rem}
 
 /* Footer */
-footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.92rem}
+footer{border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--btn),var(--gild) 50%,var(--btn)) 1;padding:40px 0;color:var(--muted);font-size:.92rem;background:#090707}
 .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px}
 footer h3{font:700 .8rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin-bottom:10px}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
@@ -167,7 +196,10 @@ footer a:hover{color:var(--text)}
 
 @media (max-width:860px){
   .features{grid-template-columns:repeat(2,1fr)}
-  .hero-grid,.guild,.foot,.collab{grid-template-columns:1fr}
+  .hero-grid,.guild,.foot,.collab,.stream-top{grid-template-columns:1fr}
+  .hero-art{order:-1}
+  .hero-art img{max-width:300px}
+  .stream-top img{max-width:260px;justify-self:center}
   .partners,.statrow{grid-template-columns:repeat(2,1fr)}
   .specs{grid-template-columns:repeat(2,1fr)}
   .socials{grid-template-columns:repeat(2,1fr)}
@@ -213,21 +245,24 @@ footer a:hover{color:var(--text)}
           <a class="btn primary" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener">Auf Twitch zuschauen</a>
           <a class="btn" href="#gilde">Der Gilde beitreten</a>
         </div>
+        <aside class="status" aria-label="Stream-Status">
+          <span class="pill" id="livepill"><i></i><span id="livetext">Gerade offline</span></span>
+          <h3 id="statusTitle">Nächster Stream</h3>
+          <p id="statusText">Wird berechnet …</p>
+          <div class="next"><b>Heute:</b> <span id="todayLine">–</span></div>
+        </aside>
       </div>
-      <aside class="status" aria-label="Stream-Status">
-        <span class="pill" id="livepill"><i></i><span id="livetext">Gerade offline</span></span>
-        <h3 id="statusTitle">Nächster Stream</h3>
-        <p id="statusText">Wird berechnet …</p>
-        <div class="next"><b>Heute:</b> <span id="todayLine">–</span></div>
-      </aside>
+      <div class="hero-art">
+        <img src="img/blizznews.webp" width="640" height="640" alt="SheEvil – Evils Blizznews, World of Warcraft Forever" fetchpriority="high">
+      </div>
     </div>
 
     <div class="socials" aria-label="Meine Kanäle">
-      <a class="social" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener"><b>Twitch</b><small>Live-Streams</small></a>
-      <a class="social" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener"><b>TikTok</b><small>Live-Streams und Clips</small></a>
-      <a class="social" href="https://www.youtube.com/@sheeviltv" target="_blank" rel="noopener"><b>YouTube</b><small>Videos und Community</small></a>
-      <a class="social" href="https://discord.gg/tnZRZKcz4x" target="_blank" rel="noopener"><b>Discord</b><small>Community und Gilde</small></a>
-      <a class="social" href="https://www.instagram.com/sheeviiil" target="_blank" rel="noopener"><b>Instagram</b><small>Reels und Stories</small></a>
+      <a class="social" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg><b>Twitch</b><small>Live-Streams</small></a>
+      <a class="social" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><b>TikTok</b><small>Live-Streams und Clips</small></a>
+      <a class="social" href="https://www.youtube.com/@sheeviltv" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><b>YouTube</b><small>Videos und Community</small></a>
+      <a class="social" href="https://discord.gg/tnZRZKcz4x" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><b>Discord</b><small>Community und Gilde</small></a>
+      <a class="social" href="https://www.instagram.com/sheeviiil" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><b>Instagram</b><small>Reels und Stories</small></a>
     </div>
   </div>
 </div>
@@ -236,8 +271,8 @@ footer a:hover{color:var(--text)}
   <div class="wrap">
     <div class="head-row">
       <div>
-        <p class="eyebrow">Täglich aktualisiert</p>
-        <h2>News aus WoW Forever</h2>
+        <p class="eyebrow">News aus WoW Forever · täglich aktualisiert</p>
+        <h2>Evils <span class="gold">Blizznews</span></h2>
       </div>
       <div class="chips" role="group" aria-label="News filtern" id="chips"></div>
     </div>
@@ -248,11 +283,16 @@ footer a:hover{color:var(--text)}
 
 <section id="stream" class="band">
   <div class="wrap">
-    <p class="eyebrow">Streamplan</p>
-    <h2>Wann ich live bin</h2>
-    <p class="lead">Montag bis Freitag live, alle Zeiten in deutscher Zeit. Je nach Tag endet der Stream um 12 oder 14 Uhr.</p>
-    <p class="lead">Live bin ich auf Twitch und auf TikTok. Schau vorbei und schreib in den Chat!</p>
-    <div class="btns"><a class="btn" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener">Auf Twitch zuschauen</a><a class="btn" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener">Auf TikTok zuschauen</a></div>
+    <div class="stream-top">
+      <div>
+        <p class="eyebrow">Streamplan</p>
+        <h2>Wann ich live bin</h2>
+        <p class="lead">Montag bis Freitag live, alle Zeiten in deutscher Zeit. Je nach Tag endet der Stream um 12 oder 14 Uhr.</p>
+        <p class="lead">Live bin ich auf Twitch und auf TikTok. Schau vorbei und schreib in den Chat!</p>
+        <div class="btns"><a class="btn primary" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener">Auf Twitch zuschauen</a><a class="btn" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener">Auf TikTok zuschauen</a></div>
+      </div>
+      <img src="img/folgen-twitch-tiktok.webp" width="600" height="600" loading="lazy" alt="Folgt mir auf Twitch (SheEvilTv) und TikTok (@sheeviltv)">
+    </div>
     <div class="plan" id="plan"></div>
   </div>
 </section>
@@ -331,7 +371,7 @@ footer a:hover{color:var(--text)}
     <p class="lead">Du möchtest mit mir zusammenarbeiten? Hier stelle ich meine bisherigen Partner vor und zeige dir, wie du mich erreichst.</p>
     <div class="partners">
       <a class="partner" href="https://www.kissmecoffee.de/#EVIL10" target="_blank" rel="sponsored noopener">
-        <span class="mark">KMC</span>
+        <img class="plogo" src="img/kissmecoffee-logo.png" width="84" height="84" loading="lazy" alt="Kiss Me Coffee Logo">
         <b>Kiss Me Coffee</b>
         <small>Mit dem Code <span class="code">EVIL10</span> bekommst du 10 % Rabatt auf deine Bestellung.</small>
         <span class="ad">Anzeige · Affiliate-Link</span>
