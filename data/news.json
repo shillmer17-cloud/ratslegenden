@@ -26,5 +26,19 @@
     "title": "Beispiel: Neues Kurzvideo auf TikTok",
     "text": "Verweis auf das heutige Video mit Link zum Kanal.",
     "source": ""
+  },
+  {
+    "date": "2026-11-24",
+    "tag": "Patch",
+    "title": "Hotfixes vom 23. November: Weltbuffs bleiben beim Gebietswechsel",
+    "text": "Blizzard hat die nächste Ladung Hotfixes für WoW Forever ausgerollt. Weltbuffs fallen beim Wechsel des Gebiets nicht mehr runter, beim Betreten von Schlachtzügen aber weiterhin. Der Obsidian Sentinel in Uldaman droppt wieder seine Beute, und Krieger können Tödlicher Stoß ohne das passende Talent nicht mehr aus dem Zauberbuch nutzen. Dazu gibt es Korrekturen für Kochen, Ingenieurskunst und mehrere Quests in Riverglades und im Sumpfland.",
+    "source": "https://worldofwarcraft.blizzard.com/en-us/news/24315281"
+  },
+  {
+    "date": "2026-11-24",
+    "tag": "Forever",
+    "title": "Blizzard stoppt Layer-Swap-Addons",
+    "text": "Schluss mit gezieltem Layer-Hopping: Wie PC Games berichtet, liefern die Realm-Schnittstellen für Addons in WoW Forever jetzt nur noch leere Werte, und Addons wie „Layer-Swap“ verlieren damit ihre wichtigste Funktion. Bisher wurden solche Tools genutzt, um gezielt bestimmte Gegner, Erz oder Kräuter zu farmen. Per Gruppeneinladung lässt sich der Layer aber weiterhin wechseln. Unser Gilden-Addon ist davon nicht betroffen, es nutzt keine Realm-Daten.",
+    "source": "https://www.pcgames.de/World-of-Warcraft-Spiel-42971/News/Blizzard-pulls-the-plug-Popular-WoW-addons-lose-key-features-1560857/"
   }
 ]
