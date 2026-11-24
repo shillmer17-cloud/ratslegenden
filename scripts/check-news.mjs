@@ -7,6 +7,7 @@ import { dirname, join } from "node:path";
 const FILE = join(dirname(fileURLToPath(import.meta.url)), "..", "data", "news.json");
 const TAGS = ["Forever", "Patch", "Event", "Stream", "Gilde", "Video"];
 const FIELDS = ["date", "tag", "title", "text", "source"];
+const OPTIONAL = ["video"]; // "" = noch nicht verfilmt, Link = fertiges Blizznews-Video
 
 const errors = [];
 let data;
@@ -39,7 +40,15 @@ data.forEach((n, i) => {
   for (const f of ["date", "tag", "title", "text"]) {
     if (typeof n[f] === "string" && !n[f].trim()) errors.push(`${where}: Feld "${f}" ist leer.`);
   }
-  const extra = Object.keys(n).filter((k) => !FIELDS.includes(k));
+  if ("video" in n) {
+    if (typeof n.video !== "string") errors.push(`${where}: Feld "video" muss Text sein (leer oder Link).`);
+    else if (n.video) {
+      let ok = false;
+      try { ok = ["http:", "https:"].includes(new URL(n.video).protocol); } catch {}
+      if (!ok) errors.push(`${where}: Video "${n.video}" ist kein gültiger http(s)-Link.`);
+    }
+  }
+  const extra = Object.keys(n).filter((k) => !FIELDS.includes(k) && !OPTIONAL.includes(k));
   if (extra.length) errors.push(`${where}: unbekannte Felder: ${extra.join(", ")}.`);
 
   if (typeof n.date === "string") {

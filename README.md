@@ -10,6 +10,7 @@ Gehostet mit GitHub Pages, News werden täglich von einem Bot ergänzt.
 | `index.html` | Die komplette Seite (Design, Streamplan, Gilde, Kooperation, Setup) |
 | `data/news.json` | Alle News; die Seite zeigt die neuesten 30 |
 | `BOT.md` | Regeln für den täglichen News-Bot |
+| `DREHLISTE.md` | Spickzettel für „Evils Blizznews“: alle noch nicht verfilmten Meldungen mit Stichpunkten |
 | `scripts/check-news.mjs` | Prüft `data/news.json` auf gültiges JSON und Pflichtfelder |
 | `.github/workflows/pages.yml` | Veröffentlicht die Seite bei jedem Push auf `main` |
 
@@ -36,6 +37,9 @@ node scripts/check-news.mjs
 ```
 
 Erlaubte Tags: `Forever`, `Patch`, `Event`, `Stream`, `Gilde`, `Video`. `source` ist ein Link oder leer.
+
+Optional `video`: `""` = noch nicht verfilmt (Website zeigt „Video folgt“), ein Link = fertiges Video (Website zeigt „Zum Video“).
+Nach dem Dreh einfach den Video-Link bei der Meldung eintragen; der Bot nimmt sie dann aus der Drehliste.
 
 ## Veröffentlichen
 

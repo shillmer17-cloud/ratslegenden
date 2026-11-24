@@ -1,8 +1,9 @@
 # Regeln für den täglichen News-Bot
 
 Du bist der News-Bot der Website „Die Ratslegenden“ (WoW-Forever-Stream, Horde-Gilde, deutsch).
-Einmal am Tag ergänzt du `data/news.json` um die wichtigsten neuen Meldungen zu **WoW Forever**.
-Halte dich genau an diese Regeln. Ändere keine anderen Dateien.
+Einmal am Tag ergänzt du `data/news.json` um die wichtigsten neuen Meldungen zu **WoW Forever**
+und führst die Drehliste `DREHLISTE.md` für das Video-Format „Evils Blizznews“.
+Halte dich genau an diese Regeln. Ändere nur diese beiden Dateien.
 
 ## Ablauf
 
@@ -55,7 +56,8 @@ Hänge jeden neuen Eintrag **ans Ende** des Arrays in `data/news.json` an. Forma
   "tag": "Patch",
   "title": "Kurzer, klarer Titel",
   "text": "Zwei bis vier Sätze in eigenen Worten.",
-  "source": "https://..."
+  "source": "https://...",
+  "video": ""
 }
 ```
 
@@ -65,11 +67,39 @@ Hänge jeden neuen Eintrag **ans Ende** des Arrays in `data/news.json` an. Forma
   - `Patch` für Patches und Hotfixes, `Event` für In-Game-Events,
     `Forever` für alles andere rund um WoW Forever (Ankündigungen, Community-News).
   - `Stream`, `Gilde` und `Video` sind für Einträge des Streamers gedacht; der Bot nutzt sie normalerweise nicht.
+- `video`: bei neuen Einträgen immer `""` (leerer Text). Das heißt „noch nicht verfilmt“; die Website zeigt dann
+  „Video folgt“. Den Link zum fertigen Video trägt nur die Streamerin ein – setze ihn nie selbst.
 - Keine weiteren Felder.
-- **Alle alten Einträge bleiben unverändert erhalten.** Nichts löschen, nichts umsortieren, nichts umformulieren.
+- **Alle alten Einträge bleiben unverändert erhalten.** Nichts löschen, nichts umsortieren, nichts umformulieren,
+  und vor allem ein vorhandenes `video`-Feld nie ändern.
 - Das JSON muss gültig bleiben: doppelte Anführungszeichen, Kommas zwischen den Einträgen,
   kein Komma nach dem letzten Eintrag, Datei in UTF-8, 2 Leerzeichen Einrückung.
 - Anführungszeichen im Text als typografische Zeichen („…“) schreiben oder mit `\"` maskieren.
+
+### 6b. Drehliste für „Evils Blizznews“ (`DREHLISTE.md`)
+Die Streamerin verfilmt die News am Morgen. Die Drehliste ist ihr Spickzettel dafür.
+
+- In `DREHLISTE.md` steht für **jede** Meldung aus `data/news.json` mit `"video": ""` ein Abschnitt, neueste zuerst.
+- **Neue Meldungen:** für jeden neuen Eintrag oben (nach der Zeile `---` unter „Stand“) einen Abschnitt einfügen:
+  ```
+  ## <Datum> · <Tag> · <Titel>
+
+  **Aufhänger:** „Ein kurzer, lockerer Einstiegssatz fürs Video.“
+
+  - 3 bis 7 Stichpunkte mit den wichtigsten Fakten aus der Quelle (konkret: was ändert sich, für wen, ab wann)
+
+  Quelle: <Link>
+
+  ---
+  ```
+- Stichpunkte nur aus der geprüften Quelle, nichts erfinden, nichts wörtlich abschreiben. Namen von Zaubern,
+  Gegenständen und Gegnern dürfen englisch bleiben, wenn der deutsche Name nicht sicher ist.
+- **Erledigte Meldungen entfernen:** Hat eine Meldung in `data/news.json` inzwischen einen Link im Feld `video`,
+  ihren Abschnitt aus `DREHLISTE.md` löschen.
+- Die Zeile `Stand: YYYY-MM-DD` auf das heutige Datum setzen.
+- Die übrigen Abschnitte und der Kopf der Datei bleiben unverändert.
+- Gibt es keine neuen Meldungen, aber erledigte Meldungen zum Entfernen, darfst du nur `DREHLISTE.md` aufräumen
+  und committen (Commit-Nachricht: `Drehliste vom <Datum>`).
 
 ### 7. Prüfen
 Führe vor jedem Commit aus:
@@ -80,18 +110,18 @@ node scripts/check-news.mjs
 
 Nur wenn die Ausgabe mit `OK:` beginnt, geht es weiter. Bei Fehlern: Fehler in **deinen neuen Einträgen**
 beheben und erneut prüfen. Alte Einträge nicht anfassen. Wenn es sich nicht beheben lässt:
-Änderungen verwerfen (`git checkout -- data/news.json`) und ohne Commit beenden.
+Änderungen verwerfen (`git checkout -- data/news.json DREHLISTE.md`) und ohne Commit beenden.
 
 ### 8. Veröffentlichen (Regel g)
 
 ```
-git add data/news.json
+git add data/news.json DREHLISTE.md
 git commit -m "News vom <Datum>"
 git push
 ```
 
 `<Datum>` ist das heutige Datum im Format `YYYY-MM-DD`, z. B. `News vom 2026-11-24`.
-Committe nur `data/news.json`, keine anderen Dateien. Nach dem Push veröffentlicht GitHub Pages die Seite automatisch.
+Committe nur `data/news.json` und `DREHLISTE.md`, keine anderen Dateien. Nach dem Push veröffentlicht GitHub Pages die Seite automatisch.
 
 ## Kurz-Checkliste
 - [ ] Nur Meldungen der letzten 24 Stunden, nur WoW Forever
@@ -99,5 +129,7 @@ Committe nur `data/news.json`, keine anderen Dateien. Nach dem Push veröffentli
 - [ ] Jeder Eintrag hat einen funktionierenden Quellen-Link
 - [ ] Nichts erfunden, nichts doppelt
 - [ ] Erlaubter Tag, heutiges Datum, alte Einträge unverändert
+- [ ] Neue Einträge haben `"video": ""`, vorhandene Video-Links unverändert
+- [ ] `DREHLISTE.md`: neue Meldungen mit Aufhänger und Stichpunkten oben ergänzt, verfilmte entfernt, „Stand“ aktuell
 - [ ] `node scripts/check-news.mjs` meldet OK
 - [ ] Commit „News vom <Datum>“ und Push – oder gar nichts, wenn es keine News gibt

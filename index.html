@@ -121,6 +121,12 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 .hint{margin-top:18px;font-size:.9rem;color:var(--muted)}
 .src{display:inline-block;margin-top:8px;font-size:.82rem;color:var(--muted);text-underline-offset:3px}
 .src:hover{color:var(--gold)}
+.post-foot{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:10px}
+.post-foot .src{margin-top:0}
+.vid{display:inline-flex;align-items:center;gap:6px;font:700 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:99px;
+  color:var(--gild);border:1px dashed var(--gild-dim);background:rgba(227,178,90,.06)}
+a.vid{border-style:solid;color:#fff;background:var(--btn);border-color:var(--gild-dim);text-decoration:none}
+a.vid:hover{background:var(--btn-hi)}
 .post>div{min-width:0;overflow-wrap:anywhere}
 .news-msg{margin:0;padding:20px;background:var(--panel);border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
 
@@ -457,7 +463,9 @@ function renderNews(){
     .map(function(n){
       var p=n.date.split("-");
       var src=safeUrl(n.source);
-      return '<article class="post'+(n.date===today?' today':'')+'"><div class="date"><b>'+parseInt(p[2],10)+'</b><span>'+MON[parseInt(p[1],10)-1]+'</span></div><div><span class="tag">'+esc(n.tag)+(n.date===today?' · Heute':'')+'</span><h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+(src?'<a class="src" href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">Quelle</a>':'')+'</div></article>';
+      /* video: Feld fehlt = kein Hinweis, leer = noch nicht verfilmt, Link = fertiges Video */
+      var vid=(typeof n.video!=="string")?"":(safeUrl(n.video)?'<a class="vid" href="'+esc(safeUrl(n.video))+'" target="_blank" rel="noopener">&#9654; Zum Video</a>':'<span class="vid">&#127916; Video folgt</span>');
+      return '<article class="post'+(n.date===today?' today':'')+'"><div class="date"><b>'+parseInt(p[2],10)+'</b><span>'+MON[parseInt(p[1],10)-1]+'</span></div><div><span class="tag">'+esc(n.tag)+(n.date===today?' · Heute':'')+'</span><h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+((src||vid)?'<div class="post-foot">'+(src?'<a class="src" href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">Quelle</a>':'')+vid+'</div>':'')+'</div></article>';
     }).join("");
 }
 /* Nur echte http(s)-Links als Quelle zulassen */
