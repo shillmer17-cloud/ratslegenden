@@ -143,6 +143,12 @@ a.vid:hover{background:var(--btn-hi)}
 .day b{display:block;margin-top:8px;font-size:1.05rem}
 .day span{display:block;color:var(--muted);font-size:.9rem;margin-top:2px}
 .day.off b{color:var(--muted);font-weight:400}
+.day.cancel b{color:#ff8a8e;font-weight:700;text-decoration:none}
+.day.cancel span{text-decoration:line-through}
+.pause-note{margin:18px 0 0;padding:14px 16px;max-width:62ch;border:1px solid var(--gold-dim);border-left:4px solid var(--gold);border-radius:10px;background:rgba(190,25,32,.12);color:var(--text)}
+.pause-note b{display:block;font-family:var(--display);margin-bottom:4px;color:#ff8a8e}
+.pill.pause{background:rgba(227,178,90,.12);color:var(--gild)}
+.pill.pause i{background:var(--gild)}
 
 /* Gilde */
 .guild{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
@@ -295,6 +301,7 @@ footer a:hover{color:var(--text)}
         <h2>Wann ich live bin</h2>
         <p class="lead">Montag bis Freitag live, alle Zeiten in deutscher Zeit. Je nach Tag endet der Stream um 12 oder 14 Uhr.</p>
         <p class="lead">Live bin ich auf Twitch und auf TikTok. Schau vorbei und schreib in den Chat!</p>
+        <p class="pause-note" id="pauseNote" hidden></p>
         <div class="btns"><a class="btn primary" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener">Auf Twitch zuschauen</a><a class="btn" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener">Auf TikTok zuschauen</a></div>
       </div>
       <img src="img/folgen-twitch-tiktok.webp" width="600" height="600" loading="lazy" alt="Folgt mir auf Twitch (SheEvilTv) und TikTok (@sheeviltv)">
@@ -305,9 +312,14 @@ footer a:hover{color:var(--text)}
 
 <section id="gilde">
   <div class="wrap">
-    <p class="eyebrow">Gilde</p>
-    <h2>Die Ratslegenden suchen neue Krieger der Horde</h2>
-    <p class="lead">Die Ratslegenden sind eine deutschsprachige Horde-Gilde für den Feierabend: Gespielt wird nach der Arbeit, locker und familiär. Man hilft sich gegenseitig und niemand wird zurückgelassen.</p>
+    <div class="stream-top">
+      <div>
+        <p class="eyebrow">Gilde</p>
+        <h2>Die Ratslegenden suchen neue Krieger der Horde</h2>
+        <p class="lead">Die Ratslegenden sind eine deutschsprachige Horde-Gilde für den Feierabend: Gespielt wird nach der Arbeit, locker und familiär. Man hilft sich gegenseitig und niemand wird zurückgelassen.</p>
+      </div>
+      <img src="img/blizztipps.webp" width="640" height="640" loading="lazy" alt="SheEvil – Evils Blizztipps, World of Warcraft Forever">
+    </div>
     <div class="guild">
       <div class="card">
         <h3>Was dich erwartet</h3>
@@ -447,6 +459,11 @@ var PLAN = {
   5:{s:"09:00",e:"14:00",label:"9 bis 12 oder 14 Uhr",what:"WoW Forever live"},
   6:{t:"Pause",off:true}, 0:{t:"Pause",off:true}
 };
+/* Stream-Pause: zwischen from und until (je einschließlich) fallen alle Streams aus. Danach automatisch wieder normal.
+   Für eine neue Pause einfach Daten und Text ändern; PAUSE = null schaltet sie ab. */
+var PAUSE = {from:"2026-11-23", until:"2026-11-29",
+  title:"Streams fallen diese Woche aus",
+  text:"Ich muss mich diese Woche auskurieren, deshalb gibt es bis Sonntag keine Streams. Sobald ich wieder fit bin, geht es weiter!"};
 var DAYS = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
 var ORDER = [1,2,3,4,5,6,0];
 var MON = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
@@ -500,10 +517,15 @@ function renderChips(){
 }
 
 /* Streamplan und Status */
+function inPause(){var t=isoToday();return !!PAUSE && t>=PAUSE.from && t<=PAUSE.until}
 function renderPlan(){
-  var td=new Date().getDay();
+  var td=new Date().getDay(), pause=inPause();
+  var note=document.getElementById("pauseNote");
+  note.hidden=!pause;
+  if(pause){note.innerHTML='<b>'+esc(PAUSE.title)+'</b>'+esc(PAUSE.text)}
   document.getElementById("plan").innerHTML=ORDER.map(function(d){
     var p=PLAN[d];
+    if(pause && !p.off) return '<div class="day off cancel'+(d===td?' now':'')+'"><h3>'+DAYS[d].slice(0,2)+(d===td?' · heute':'')+'</h3><b>Fällt aus</b><span>'+esc(p.label)+'</span></div>';
     return '<div class="day'+(p.off?' off':'')+(d===td?' now':'')+'"><h3>'+DAYS[d].slice(0,2)+(d===td?' · heute':'')+'</h3><b>'+(p.off?p.t:p.label)+'</b>'+(p.off?'':'<span>'+esc(p.what)+'</span>')+'</div>';
   }).join("");
 }
@@ -511,6 +533,14 @@ function renderStatus(){
   var now=new Date(), td=now.getDay(), mins=now.getHours()*60+now.getMinutes();
   function m(t){var a=t.split(":");return +a[0]*60+ +a[1]}
   var p=PLAN[td], pill=document.getElementById("livepill");
+  if(inPause()){
+    pill.className="pill pause";
+    document.getElementById("livetext").textContent="Stream-Pause";
+    document.getElementById("todayLine").textContent="Kein Stream";
+    document.getElementById("statusTitle").textContent=PAUSE.title;
+    document.getElementById("statusText").textContent=PAUSE.text;
+    return;
+  }
   var live=!p.off && mins>=m(p.s) && mins<m(p.e);
   pill.className="pill"+(live?" on":"");
   document.getElementById("livetext").textContent=live?"Jetzt live":"Gerade offline";
