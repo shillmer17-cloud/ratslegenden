@@ -214,8 +214,8 @@ footer a:hover{color:var(--text)}
 
     <div class="socials" aria-label="Meine Kanäle">
       <a class="social" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener"><b>Twitch</b><small>Live-Streams</small></a>
-      <a class="social" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener"><b>TikTok</b><small>Tägliche Kurzvideos</small></a>
-      <a class="social" href="https://www.youtube.com/@sheeviltv" target="_blank" rel="noopener"><b>YouTube</b><small>Alle Streams uncut</small></a>
+      <a class="social" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener"><b>TikTok</b><small>Live-Streams und Clips</small></a>
+      <a class="social" href="https://www.youtube.com/@sheeviltv" target="_blank" rel="noopener"><b>YouTube</b><small>Videos und Community</small></a>
       <a class="social" href="https://discord.gg/tnZRZKcz4x" target="_blank" rel="noopener"><b>Discord</b><small>Community und Gilde</small></a>
       <a class="social" href="https://www.instagram.com/sheeviiil" target="_blank" rel="noopener"><b>Instagram</b><small>Reels und Stories</small></a>
     </div>
@@ -241,8 +241,8 @@ footer a:hover{color:var(--text)}
     <p class="eyebrow">Streamplan</p>
     <h2>Wann ich live bin</h2>
     <p class="lead">Montag bis Freitag live, alle Zeiten in deutscher Zeit. Je nach Tag endet der Stream um 12 oder 14 Uhr.</p>
-    <p class="lead">Verpasst? Alle Streams gibt es ungeschnitten auf YouTube, jederzeit zum Nachschauen.</p>
-    <div class="btns"><a class="btn" href="https://www.youtube.com/@sheeviltv" target="_blank" rel="noopener">Alle Streams auf YouTube</a></div>
+    <p class="lead">Live bin ich auf Twitch und auf TikTok. Schau vorbei und schreib in den Chat!</p>
+    <div class="btns"><a class="btn" href="https://www.twitch.tv/sheeviltv" target="_blank" rel="noopener">Auf Twitch zuschauen</a><a class="btn" href="https://www.tiktok.com/@sheeviltv" target="_blank" rel="noopener">Auf TikTok zuschauen</a></div>
     <div class="plan" id="plan"></div>
   </div>
 </section>
@@ -431,7 +431,7 @@ function renderStatus(){
   document.getElementById("livetext").textContent=live?"Jetzt live":"Gerade offline";
   document.getElementById("todayLine").textContent=p.off?"Kein Stream":p.what+", "+p.label;
   var t=document.getElementById("statusTitle"), x=document.getElementById("statusText");
-  if(live){t.textContent="Der Stream läuft";x.textContent="Schau auf Twitch vorbei und schreib in den Chat."}
+  if(live){t.textContent="Der Stream läuft";x.textContent="Schau auf Twitch oder TikTok vorbei und schreib in den Chat."}
   else{
     for(var i=0;i<8;i++){
       var d=(td+i)%7, q=PLAN[d];
