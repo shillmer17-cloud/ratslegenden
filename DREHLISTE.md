@@ -35,22 +35,3 @@ Quelle: https://us.forums.blizzard.com/en/wow/t/lockbox-exploit-and-economy-hold
 - Gilden-Werbung: Unser Ratslegenden-Addon ist nicht betroffen, es nutzt keine Realm-Daten.
 
 Quelle: https://www.pcgames.de/World-of-Warcraft-Spiel-42971/News/Blizzard-pulls-the-plug-Popular-WoW-addons-lose-key-features-1560857/
-
----
-
-## 2026-11-24 · Patch · Hotfixes vom 23. November
-
-**Aufhänger:** „Weltbuffs bleiben endlich – aber zwei Buffs wurden halbiert!“
-
-- **Weltbuffs** fallen beim Wechsel des Gebiets nicht mehr ab. Beim Betreten von Schlachtzügen weiterhin schon.
-- **Halbiert (Fehler behoben):** Fengus' Ferocity und die Buffs vom Dunkelmond-Jahrmarkt gaben bisher die doppelte Wirkung.
-- Waffen-Procs lösten öfter aus als vorgesehen – behoben.
-- **Uldaman:** Der Obsidian Sentinel droppt wieder seine Beute.
-- **Klassen:** Krieger können Tödlicher Stoß ohne Talent nicht mehr aus dem Zauberbuch nutzen.
-  Schattenpriester: Dark Inspiration gibt den richtigen Willenskraft-Bonus, Chastise geht in Schattengestalt.
-  Zerstörungs-Hexer: Intensity wirkt jetzt auf Incinerate. Druiden: 4er-Bonus Feralheart korrigiert.
-- **Berufe:** Muschelgerichte zählen jetzt als Ausdauer-Essen, Murloc Fin Soup wurde verbessert.
-  Ingenieurskunst- und Lederverarbeitungs-Fehler behoben (z. B. Pattern: Centaur Hoofwarmers wieder erlernbar).
-- **Quests:** Riverglades („Dunston Checks Out“) und Sumpfland (fehlende Belohnungen/Ruf) repariert.
-
-Quelle: https://worldofwarcraft.blizzard.com/en-us/news/24315281

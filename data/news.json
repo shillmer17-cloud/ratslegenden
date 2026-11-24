@@ -1,39 +1,11 @@
 [
   {
     "date": "2026-11-24",
-    "tag": "Stream",
-    "title": "Beispiel: Heute Abend Dungeon-Runs mit der Gilde",
-    "text": "Hier steht später dein Tagesupdate: was heute im Stream passiert, was neu in WoW Forever ist, wo ihr euch trefft.",
-    "source": ""
-  },
-  {
-    "date": "2026-11-23",
-    "tag": "Gilde",
-    "title": "Beispiel: Neues vom Gilden-Addon",
-    "text": "Kurzer Bericht über neue Funktionen oder Änderungen, die die Gilde betreffen.",
-    "source": ""
-  },
-  {
-    "date": "2026-11-22",
-    "tag": "Forever",
-    "title": "Beispiel: Das Wichtigste der Woche in WoW Forever",
-    "text": "Eine Zusammenfassung der Neuigkeiten, die deine Zuschauer kennen sollten.",
-    "source": ""
-  },
-  {
-    "date": "2026-11-21",
-    "tag": "Video",
-    "title": "Beispiel: Neues Kurzvideo auf TikTok",
-    "text": "Verweis auf das heutige Video mit Link zum Kanal.",
-    "source": ""
-  },
-  {
-    "date": "2026-11-24",
     "tag": "Patch",
-    "title": "Hotfixes vom 23. November: Weltbuffs bleiben beim Gebietswechsel",
-    "text": "Blizzard hat die nächste Ladung Hotfixes für WoW Forever ausgerollt. Weltbuffs fallen beim Wechsel des Gebiets nicht mehr runter, beim Betreten von Schlachtzügen aber weiterhin. Der Obsidian Sentinel in Uldaman droppt wieder seine Beute, und Krieger können Tödlicher Stoß ohne das passende Talent nicht mehr aus dem Zauberbuch nutzen. Dazu gibt es Korrekturen für Kochen, Ingenieurskunst und mehrere Quests in Riverglades und im Sumpfland.",
+    "title": "Neuer Hotfix: Weltbuffs bleiben beim Gebietswechsel",
+    "text": "Blizzard hat die nächste Ladung Hotfixes für WoW Forever ausgerollt. Weltbuffs fallen beim Wechsel des Gebiets nicht mehr runter, beim Betreten von Schlachtzügen aber weiterhin. Dafür werden zwei Buffs schwächer: Die Buffs vom Dunkelmond-Jahrmarkt und Fengus' Wildheit waren doppelt so stark wie geplant und geben jetzt nur noch die normale Stärke. Dazu gibt es Korrekturen für mehrere Klassen, Berufe und Quests.",
     "source": "https://worldofwarcraft.blizzard.com/en-us/news/24315281",
-    "video": ""
+    "video": "https://www.tiktok.com/@sheeviltv/video/7711758265708793121"
   },
   {
     "date": "2026-11-24",
@@ -50,5 +22,21 @@
     "text": "Blizzard hat am Wochenende abgeschaltet, dass man vor dem Looten in Lockboxen reinschauen kann. Damit sollte ein Exploit gestoppt werden, bei dem der Inhalt je nach Betrachter unterschiedlich ausfiel. Laut Community Manager Kaivax im offiziellen Forum ist das aber nur eine Notlösung: An einem richtigen Fix, der Reinschauen und teilweises Looten wieder erlaubt, wird gearbeitet. Einen Termin gibt es noch nicht, Schurken müssen sich also noch etwas gedulden.",
     "source": "https://us.forums.blizzard.com/en/wow/t/lockbox-exploit-and-economy-hold-heuristic/2426335/4",
     "video": ""
+  },
+  {
+    "date": "2026-11-24",
+    "tag": "Patch",
+    "title": "Uldaman: Der Obsidianwächter lässt wieder Beute fallen",
+    "text": "Gute Nachricht für Dungeon-Gänger: Der Obsidianwächter in Uldaman lässt nach dem Hotfix vom 23. November wieder Beute fallen. Laut Warcraft Tavern hatte Blizzard die Beute kurzzeitig entfernt, um eine lukrative Goldfarm zu stoppen. Der Haken: Die Gegenstände bringen beim Händler jetzt deutlich weniger. Für die Ausrüstung lohnt sich der Boss also wieder, als Goldquelle kaum noch.",
+    "source": "https://www.warcrafttavern.com/forever/news/obsidian-sentinel-loot-nerfed-wow-forever-hotfixes-for-november-23/",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7711704481238420775"
+  },
+  {
+    "date": "2026-11-24",
+    "tag": "Forever",
+    "title": "Paladin & Hexenmeister: Bug bei der epischen Reitfertigkeit",
+    "text": "Paladine und Hexenmeister aufgepasst: Wer die Klassenquest für das epische Reittier abschließt, bekommt im Moment nicht die passende Reitfertigkeit. Dadurch geht nur das Klassenreittier, andere schnelle Reittiere nicht. Community Manager Kaivax hat den Fehler im offiziellen Forum bestätigt, der Fix soll noch ein bis zwei Tage dauern.",
+    "source": "https://eu.forums.blizzard.com/en/wow/t/epic-mount-bug-riding-skill/642667",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7711748126075260193"
   }
 ]
