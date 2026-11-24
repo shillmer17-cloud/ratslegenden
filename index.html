@@ -132,6 +132,14 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 .partner .mark{width:44px;height:44px;border-radius:10px;border:1px dashed var(--gold-dim);display:grid;place-items:center;font:700 .8rem var(--display);color:var(--gold)}
 .partner b{margin-top:6px}
 .partner small{color:var(--muted)}
+/* Gilden-Addon */
+.addon-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.feat{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--btn);border-radius:12px;padding:18px 18px 20px}
+.feat h3{font-size:1.02rem;margin-bottom:6px}
+.feat p{margin:0;color:var(--muted);font-size:.95rem}
+.addon-more{margin-top:18px;color:var(--muted);font-size:.95rem;max-width:80ch}
+.addon-more b{color:var(--text);font-weight:600}
 a.partner{text-decoration:none;transition:transform .15s,border-color .15s}
 a.partner:hover{transform:translateY(-2px);border-color:var(--gold-dim)}
 .code{font-weight:700;color:var(--gold);letter-spacing:.06em}
@@ -158,6 +166,7 @@ footer a:hover{color:var(--text)}
 .ph{background:rgba(190,25,32,.2);color:var(--gold);padding:0 5px;border-radius:4px}
 
 @media (max-width:860px){
+  .features{grid-template-columns:repeat(2,1fr)}
   .hero-grid,.guild,.foot,.collab{grid-template-columns:1fr}
   .partners,.statrow{grid-template-columns:repeat(2,1fr)}
   .specs{grid-template-columns:repeat(2,1fr)}
@@ -167,7 +176,7 @@ footer a:hover{color:var(--text)}
 @media (max-width:520px){
   .post{grid-template-columns:1fr}
   .date{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;text-align:left;display:flex;gap:10px;align-items:baseline}
-  .facts,.specs,.partners,.statrow{grid-template-columns:1fr}
+  .facts,.specs,.partners,.statrow,.features{grid-template-columns:1fr}
   section{padding:48px 0}
 }
 </style>
@@ -183,6 +192,7 @@ footer a:hover{color:var(--text)}
         <li><a href="#news">News</a></li>
         <li><a href="#stream">Stream</a></li>
         <li><a href="#gilde">Gilde</a></li>
+        <li><a href="#addon">Addon</a></li>
         <li><a href="#kooperation">Kooperation</a></li>
         <li><a href="#setup">Setup</a></li>
         <li><a class="cta" href="#gilde">Jetzt bewerben</a></li>
@@ -287,6 +297,33 @@ footer a:hover{color:var(--text)}
     </div>
   </div>
 </section>
+<section id="addon">
+  <div class="wrap">
+    <p class="eyebrow">Gilden-Addon</p>
+    <h2>Ratslegenden: unser eigenes Addon für WoW Forever</h2>
+    <p class="lead">Ein Addon statt zwanzig: Suche, Quests, Dungeons, Berufe, Taschen und Gilde in einem Fenster, gebaut von uns für unsere Gilde. Komplett auf Deutsch.</p>
+    <div class="addon-head">
+      <span class="pill">Version 0.8 · in Entwicklung</span>
+      <span class="pill">Nur für Mitglieder der Ratslegenden</span>
+    </div>
+    <div class="features">
+      <div class="feat"><h3>Nachschlagewerk</h3><p>Quests, NPCs und Gegenstände mit eigener Detailseite. Ein Klick auf „Auf Karte zeigen“, und du weißt, wo es hingeht.</p></div>
+      <div class="feat"><h3>Quests & In der Nähe</h3><p>Fortschritt pro Gebiet und was es gerade um dich herum zu erledigen gibt.</p></div>
+      <div class="feat"><h3>Dungeon-Journal</h3><p>Bosse, Beute und Dropchancen für die Dungeons, übersichtlich wie ein Buch.</p></div>
+      <div class="feat"><h3>Gemeinsam gelernte Dropchancen</h3><p>Jeder geplünderte Gegner zählt mit. Die Gilde sammelt zusammen, der Tooltip zeigt „ca.&nbsp;40&nbsp;% (aus 125&nbsp;Kills)“.</p></div>
+      <div class="feat"><h3>EP-Leiste</h3><p>Mit Erholungs-EP und geschätzter Spielzeit bis Level 60.</p></div>
+      <div class="feat"><h3>Gilde & Berufe</h3><p>Wer kann was herstellen? Rezepte der Gilde auf einen Blick, Mitglieder online zuerst.</p></div>
+      <div class="feat"><h3>Taschen, Twinks & Gold</h3><p>Taschenfenster, Übersicht über alle Twinks, Auktionshaus-Preise und was sich lohnt.</p></div>
+      <div class="feat"><h3>Kampfmesser</h3><p>Schaden und Heilung in schlanken Fenstern, ohne den Bildschirm zuzumüllen.</p></div>
+    </div>
+    <p class="addon-more"><b>Und noch mehr:</b> Plunder automatisch verkaufen, Loot-Funkeln, Verbesserungs-Pfeil und Bestenliste, Makros, Lehrer, Aufgaben und Fenster frei verschieben. Jedes Modul lässt sich einzeln abschalten, und RestedXP bleibt unangetastet.</p>
+    <div class="btns">
+      <a class="btn primary" href="#gilde">Gilde beitreten und Addon bekommen</a>
+      <a class="btn" href="https://discord.gg/tnZRZKcz4x" target="_blank" rel="noopener">Addon im Discord</a>
+    </div>
+  </div>
+</section>
+
 <section id="kooperation" class="band">
   <div class="wrap">
     <p class="eyebrow">Kooperationen</p>
