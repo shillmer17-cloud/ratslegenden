@@ -38,5 +38,13 @@
     "text": "Paladine und Hexenmeister aufgepasst: Wer die Klassenquest für das epische Reittier abschließt, bekommt im Moment nicht die passende Reitfertigkeit. Dadurch geht nur das Klassenreittier, andere schnelle Reittiere nicht. Community Manager Kaivax hat den Fehler im offiziellen Forum bestätigt, der Fix soll noch ein bis zwei Tage dauern.",
     "source": "https://eu.forums.blizzard.com/en/wow/t/epic-mount-bug-riding-skill/642667",
     "video": "https://www.tiktok.com/@sheeviltv/video/7711748126075260193"
+  },
+  {
+    "date": "2026-11-25",
+    "tag": "Patch",
+    "title": "Hotfix gegen lange Schlachtfeld-Wartezeiten auf EU-PvE-Servern",
+    "text": "Spieler auf einem der Server, die dem europäischen PvE-Regelset zugrunde liegen, wurden bei der Schlachtfeld-Suche fälschlich der russischen Region zugeordnet – das sorgte für deutlich längere Warteschlangen. Der Hotfix ist schon seit der Nacht zum Dienstag drin, wirkt aber erst voll mit einem Serverneustart. Die EU-Server gingen dafür ab 3 Uhr morgens offline, Ende war für etwa 4 Uhr geplant. Blizzard rechnet damit, dass die Wartezeiten nach den nächsten Neustarts in Europa spürbar kürzer werden.",
+    "source": "https://www.pcgameshardware.de/World-of-Warcraft-Forever-Spiel-78891/News/Server-Down-Wartung-25-November-Patch-Notes-Hotfix-1560996/",
+    "video": ""
   }
 ]

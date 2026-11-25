@@ -5,7 +5,22 @@ Der News-Bot ergänzt diese Liste jeden Morgen. Sobald ein Video online ist, den
 im Feld `"video"` eintragen (oder Claude Bescheid sagen) – dann zeigt die Website „Zum Video“ und die
 Meldung verschwindet beim nächsten Lauf von dieser Liste.
 
-Stand: 2026-11-24
+Stand: 2026-11-25
+
+---
+
+## 2026-11-25 · Patch · Hotfix gegen lange Schlachtfeld-Wartezeiten auf EU-PvE-Servern
+
+**Aufhänger:** „Ewig in der Schlachtfeld-Warteschlange gehangen? Blizzard hat den Grund gefunden!“
+
+- Betroffen: Spieler auf einem der Server, die dem europäischen PvE-Regelset zugrunde liegen.
+- Fehler: Sie wurden bei der Schlachtfeld-Vermittlung fälschlich der russischen Region zugeordnet.
+- Folge: deutlich längere Warteschlangen.
+- Der Hotfix lief schon in der Nacht zum Dienstag, wirkt aber erst voll mit einem Serverneustart.
+- EU-Server waren dafür ab 3 Uhr offline, Ende war für etwa 4 Uhr geplant.
+- Blizzard erwartet kürzere Wartezeiten nach den nächsten Neustarts in Europa.
+
+Quelle: https://www.pcgameshardware.de/World-of-Warcraft-Forever-Spiel-78891/News/Server-Down-Wartung-25-November-Patch-Notes-Hotfix-1560996/
 
 ---
 
