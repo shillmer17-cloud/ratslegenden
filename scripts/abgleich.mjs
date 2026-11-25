@@ -196,7 +196,8 @@ async function main() {
     for (const dir of [HEUTE, path.join(HEUTE, "News"), path.join(HEUTE, "Tipps")]) {
       if (!fs.existsSync(dir)) continue;
       for (const f of fs.readdirSync(dir)) {
-        const m = f.match(/^(\d{4}-\d{2}-\d{2}) .+\.(mp4|txt)$/);
+        // Reel-Dateien: "<Überschrift> - JJJJ-MM-TT <Rubrik> N…" (seit 25.11.2026) oder früher "JJJJ-MM-TT <Rubrik> N - …"
+        const m = f.match(/(?:^|- )(\d{4}-\d{2}-\d{2}) (?:News|Tipp|Addon|Guide|Erklärung) \d+.*\.(mp4|txt)$/);
         if (m && m[1] < heute) { fs.rmSync(path.join(dir, f)); weg++; }
       }
     }
