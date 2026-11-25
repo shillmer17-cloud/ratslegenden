@@ -22,16 +22,3 @@ Stand: 2026-11-25
 Quelle: https://us.forums.blizzard.com/en/wow/t/lockbox-exploit-and-economy-hold-heuristic/2426335/4
 
 ---
-
-## 2026-11-24 · Forever · Blizzard stoppt Layer-Swap-Addons
-
-**Aufhänger:** „Layer-Hopping zum Farmen? Damit ist jetzt Schluss!“
-
-- In WoW Forever liefern die Realm-Schnittstellen für Addons nur noch leere Werte
-  (laut PC Games: `GetRealmName`, `GetRealmID` und Realm-Infos aus `C_BattleNet`).
-- Addons wie „Layer-Swap“ verlieren damit ihre wichtigste Funktion: anzeigen und gezielt wechseln, auf welchem Layer man ist.
-- Genutzt wurden sie vor allem, um gezielt bestimmte Gegner, Erz oder Kräuter zu farmen.
-- Den Layer wechseln geht weiterhin, z. B. per Gruppeneinladung von anderen Spielern.
-- Gilden-Werbung: Unser Ratslegenden-Addon ist nicht betroffen, es nutzt keine Realm-Daten.
-
-Quelle: https://www.pcgames.de/World-of-Warcraft-Spiel-42971/News/Blizzard-pulls-the-plug-Popular-WoW-addons-lose-key-features-1560857/
