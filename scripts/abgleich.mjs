@@ -205,7 +205,7 @@ async function main() {
     const zeilen = [`Stand: ${berlin()} (wird alle 30 Minuten aktualisiert)`, ""];
     const heutige = abgleich.reels.filter((r) => r.datum === heute);
     if (!heutige.length) zeilen.push("Heute noch keine Reels abgelegt.");
-    for (const r of heutige) zeilen.push(`${r.tiktok ? "✓ auf TikTok" : "✗ noch nicht auf TikTok"}  ${r.reihe === "news" ? "News" : "Tipps"} ${r.nummer}: ${r.titel} – ${r.akzent}${r.tiktok ? "  " + r.tiktok : ""}`);
+    for (const r of heutige) zeilen.push(`${r.tiktok ? "✓ auf TikTok" : "✗ noch nicht auf TikTok"}  ${r.reihe === "news" ? "News" : "Tipps"} ${r.nummer}: ${r.website || `${r.titel} – ${r.akzent}`}${r.tiktok ? "  " + r.tiktok : ""}`);
     const offen = abgleich.reels.filter((r) => r.datum < heute && !r.tiktok);
     if (offen.length) zeilen.push("", "Ältere Reels ohne TikTok-Video:", ...offen.map((r) => `✗ ${r.datum} ${r.titel} – ${r.akzent}`));
     // Jede Website-News soll ein Video bekommen: News ohne Video und ohne abgelegtes Reel auflisten
