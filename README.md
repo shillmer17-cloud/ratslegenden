@@ -54,6 +54,6 @@ Ist `data/news.json` fehlerhaft, bricht die Veröffentlichung ab und die alte Ve
 - prüft das TikTok-Profil @sheeviltv und ordnet die Reels zu (erste Zeile der Beschreibung oder Videolänge),
 - legt für jedes Reel einen Eintrag in `data/news.json` an oder findet die Meldung über die Quelle und trägt den TikTok-Link ins Feld `video` ein,
 - entfernt verfilmte Meldungen aus `DREHLISTE.md`, prüft mit `check-news.mjs`, committet und pusht,
-- löscht in „Heute hochladen“ (Unterordner News/Tipps) die Dateien vom Vortag und schreibt `Status.txt`.
+- hält „Heute hochladen“ (Unterordner News/Tipps) auf die Videos des Tages beschränkt und schreibt `abgleich/Status.txt`.
 
 Von Hand testen ohne Veröffentlichung: `node scripts/abgleich.mjs --ohne-push`. Protokoll: `abgleich/abgleich.log`.

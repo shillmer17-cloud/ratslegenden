@@ -12,7 +12,7 @@
 //     (scripts/video-cover.mjs); die Website zeigt es als Video-Karte und lädt TikTok erst beim Klick.
 //  5. Prüfen (check-news.mjs), committen, pushen → GitHub Pages aktualisiert die Seite.
 //  6. "Heute hochladen" aufräumen: Dateien von gestern und älter löschen (nur Kopien; Originale liegen im Video-Studio).
-//     Statusdatei "Heute hochladen/Status.txt": was ist schon auf TikTok, was fehlt noch.
+//     In "Heute hochladen" liegen nur Videos (Texte werden entfernt). Statusdatei: website/abgleich/Status.txt
 //
 // Aufruf von Hand: node scripts/abgleich.mjs [--ohne-push]
 import fs from "node:fs";
@@ -190,7 +190,7 @@ async function main() {
     }
   } else log("Website: nichts zu ändern.");
 
-  // 6. "Heute hochladen" aufräumen + Status
+  // 6. "Heute hochladen" aufräumen (nur Videos des Tages bleiben) + Status in abgleich/Status.txt
   if (fs.existsSync(HEUTE)) {
     let weg = 0;
     for (const dir of [HEUTE, path.join(HEUTE, "News"), path.join(HEUTE, "Tipps")]) {
@@ -198,10 +198,10 @@ async function main() {
       for (const f of fs.readdirSync(dir)) {
         // Reel-Dateien: "<Überschrift> - JJJJ-MM-TT <Rubrik> N…" (seit 25.11.2026) oder früher "JJJJ-MM-TT <Rubrik> N - …"
         const m = f.match(/(?:^|- )(\d{4}-\d{2}-\d{2}) (?:News|Tipp|Addon|Guide|Erklärung) \d+.*\.(mp4|txt)$/);
-        if (m && m[1] < heute) { fs.rmSync(path.join(dir, f)); weg++; }
+        if ((m && (m[1] < heute || m[2] === "txt")) || (dir === HEUTE && f === "Status.txt")) { fs.rmSync(path.join(dir, f)); weg++; }
       }
     }
-    if (weg) log(`Heute hochladen: ${weg} Dateien von gestern/älter gelöscht.`);
+    if (weg) log(`Heute hochladen: ${weg} Dateien entfernt (von gestern/älter oder keine Videos).`);
     const zeilen = [`Stand: ${berlin()} (wird alle 30 Minuten aktualisiert)`, ""];
     const heutige = abgleich.reels.filter((r) => r.datum === heute);
     if (!heutige.length) zeilen.push("Heute noch keine Reels abgelegt.");
@@ -216,7 +216,7 @@ async function main() {
       log(`Website-News ohne Video/Reel: ${ohneVideo.length}`);
     }
     zeilen.push("", "Website: https://shillmer17-cloud.github.io/ratslegenden/ · Protokoll: website/abgleich/abgleich.log");
-    fs.writeFileSync(path.join(HEUTE, "Status.txt"), zeilen.join("\r\n") + "\r\n");
+    fs.writeFileSync(path.join(DIR, "Status.txt"), "﻿" + zeilen.join("\r\n") + "\r\n");
   }
 
   fs.writeFileSync(REELS, JSON.stringify(abgleich, null, 2) + "\n");
