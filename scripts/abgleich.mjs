@@ -8,7 +8,8 @@
 //     Zuordnung über die erste Zeile der Beschreibung (Titel/Akzent) oder – eindeutig – über die Videolänge.
 //  4. data/news.json: jedes Reel bekommt einen Eintrag (vorhandene Meldung über die Quelle finden, sonst neu anlegen);
 //     sobald das TikTok-Video da ist, wird der Link ins Feld "video" eingetragen ("Zum Video").
-//     Verfilmte Meldungen verschwinden aus DREHLISTE.md.
+//     Verfilmte Meldungen verschwinden aus DREHLISTE.md. Für jedes Video wird ein Vorschaubild in img/videos/ gespeichert
+//     (scripts/video-cover.mjs); die Website zeigt es als Video-Karte und lädt TikTok erst beim Klick.
 //  5. Prüfen (check-news.mjs), committen, pushen → GitHub Pages aktualisiert die Seite.
 //  6. "Heute hochladen" aufräumen: Dateien von gestern und älter löschen (nur Kopien; Originale liegen im Video-Studio).
 //     Statusdatei "Heute hochladen/Status.txt": was ist schon auf TikTok, was fehlt noch.
@@ -19,6 +20,7 @@ import path from "node:path";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
+import { holeCovers } from "./video-cover.mjs";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const HEUTE = path.join(os.homedir(), "Desktop", "Heute hochladen");
@@ -75,7 +77,7 @@ async function main() {
     const m = html.match(/<script id="__FRONTITY_CONNECT_STATE__"[^>]*>([\s\S]*?)<\/script>/);
     const liste = m ? JSON.parse(m[1])?.source?.data?.[`/embed/@${KANAL}`]?.videoList : null;
     if (!Array.isArray(liste)) throw new Error(`Videoliste nicht gefunden (HTTP ${r.status})`);
-    videos = liste.filter((v) => /^\d{15,}$/.test(v.id)).map((v) => ({ id: v.id, desc: v.desc || "", play: v.playAddr, zeit: ttZeit(v.id) }));
+    videos = liste.filter((v) => /^\d{15,}$/.test(v.id)).map((v) => ({ id: v.id, desc: v.desc || "", play: v.playAddr, cover: v.originCoverUrl || v.coverUrl || "", zeit: ttZeit(v.id) }));
     log(`TikTok: ${videos.length} neueste Videos gelesen.`);
   } catch (e) { log(`WARNUNG TikTok nicht erreichbar: ${e.message} – nächster Versuch in 30 Minuten.`); }
 
@@ -163,8 +165,10 @@ async function main() {
   }
 
   // 5. Prüfen, committen, pushen
+  // Vorschaubilder für die Video-Karten auf der Website (img/videos/<id>.webp)
+  const neueCovers = await holeCovers(news, videos, log);
   const nachher = JSON.stringify(news, null, 2);
-  const geaendert = nachher !== vorher || dreh !== drehVorher;
+  const geaendert = nachher !== vorher || dreh !== drehVorher || neueCovers.length > 0;
   if (geaendert) {
     fs.writeFileSync(NEWS, nachher + "\n");
     if (dreh !== drehVorher) fs.writeFileSync(DREH, dreh);
@@ -178,7 +182,7 @@ async function main() {
       log(OHNE_PUSH ? "Geändert (ohne Push, Testlauf)." : "Geändert, aber nicht gepusht (git pull fehlgeschlagen) – nächster Lauf versucht es erneut.");
     } else {
       try {
-        git("add", "data/news.json", "DREHLISTE.md");
+        git("add", "data/news.json", "DREHLISTE.md", "img/videos");
         git("commit", "-m", `Videos abgeglichen ${berlin()}`, "-m", "Automatischer Abgleich: Heute hochladen + TikTok (scripts/abgleich.mjs)");
         git("push", "--quiet");
         log("Website aktualisiert (Commit + Push).");

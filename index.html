@@ -128,6 +128,20 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 a.vid{border-style:solid;color:#fff;background:var(--btn);border-color:var(--gild-dim);text-decoration:none}
 a.vid:hover{background:var(--btn-hi)}
 .post>div{min-width:0;overflow-wrap:anywhere}
+/* Video direkt in der Meldung: Vorschaubild im Hochformat, TikTok wird erst beim Klick geladen (Datenschutz) */
+.post.has-vid{grid-template-columns:96px 1fr 168px}
+.clip{display:flex;flex-direction:column;gap:6px;min-width:0}
+.clip-screen{position:relative;aspect-ratio:9/16;width:100%;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#000}
+.clip-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.clip-play{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;background:#000 center/cover no-repeat}
+.clip-play img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .25s,filter .25s}
+.clip-play:hover img{transform:scale(1.04);filter:brightness(1.1)}
+.clip-play::after{content:"";position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;
+  background:var(--btn) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/26px no-repeat;
+  box-shadow:0 4px 18px rgba(0,0,0,.55),0 0 0 3px rgba(255,255,255,.15);transition:transform .15s}
+.clip-play:hover::after{transform:scale(1.1)}
+.clip-note{font-size:.72rem;line-height:1.35;color:var(--muted)}
+.clip-note a{color:inherit}
 .news-msg a{color:var(--gild);font-weight:700;overflow-wrap:anywhere}
 .news-msg{margin:0;padding:20px;background:var(--panel);border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
 
@@ -220,7 +234,8 @@ footer a:hover{color:var(--text)}
   .plan{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:520px){
-  .post{grid-template-columns:1fr}
+  .post,.post.has-vid{grid-template-columns:1fr}
+  .clip{max-width:240px}
   .date{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;text-align:left;display:flex;gap:10px;align-items:baseline}
   .facts,.specs,.partners,.statrow,.features{grid-template-columns:1fr}
   section{padding:48px 0}
@@ -484,10 +499,24 @@ function renderNews(){
       var p=n.date.split("-");
       var src=safeUrl(n.source);
       /* video: Feld fehlt = kein Hinweis, leer = noch nicht verfilmt, Link = fertiges Video */
-      var vid=(typeof n.video!=="string")?"":(safeUrl(n.video)?'<a class="vid" href="'+esc(safeUrl(n.video))+'" target="_blank" rel="noopener">&#9654; Zum Video</a>':'<span class="vid">&#127916; Video folgt</span>');
-      return '<article class="post'+(n.date===today?' today':'')+'"><div class="date"><b>'+parseInt(p[2],10)+'</b><span>'+MON[parseInt(p[1],10)-1]+'</span></div><div><span class="tag">'+esc(n.tag)+(n.date===today?' · Heute':'')+'</span><h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+((src||vid)?'<div class="post-foot">'+(src?'<a class="src" href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">Quelle</a>':'')+vid+'</div>':'')+'</div></article>';
+      var vid=(typeof n.video!=="string")?"":(safeUrl(n.video)?'<a class="vid" href="'+esc(safeUrl(n.video))+'" target="_blank" rel="noopener">&#9654; Auf TikTok öffnen</a>':'<span class="vid">&#127916; Video folgt</span>');
+      var tt=ttId(n.video);
+      var clip=tt?'<div class="clip"><div class="clip-screen"><button class="clip-play" type="button" data-tt="'+tt+'" aria-label="Video abspielen: '+esc(n.title)+'"><img src="img/videos/'+tt+'.webp" alt="" loading="lazy" width="360" height="640" onerror="this.remove()"></button></div><span class="clip-note">Beim Abspielen wird TikTok geladen (<a href="datenschutz.html">Datenschutz</a>).</span></div>':'';
+      return '<article class="post'+(n.date===today?' today':'')+(tt?' has-vid':'')+'"><div class="date"><b>'+parseInt(p[2],10)+'</b><span>'+MON[parseInt(p[1],10)-1]+'</span></div><div><span class="tag">'+esc(n.tag)+(n.date===today?' · Heute':'')+'</span><h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+((src||vid)?'<div class="post-foot">'+(src?'<a class="src" href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">Quelle</a>':'')+vid+'</div>':'')+'</div>'+clip+'</article>';
     }).join("");
 }
+/* TikTok-Video-ID aus dem Link (nur dann gibt es eine Video-Karte) */
+function ttId(u){var m=typeof u==="string"&&u.match(/^https:\/\/(?:www\.)?tiktok\.com\/@[\w.]+\/video\/(\d{15,25})/);return m?m[1]:""}
+/* Klick auf eine Video-Karte: erst jetzt wird der TikTok-Player geladen */
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest(".clip-play"); if(!b) return;
+  var f=document.createElement("iframe");
+  f.src="https://www.tiktok.com/player/v1/"+b.getAttribute("data-tt")+"?autoplay=1&music_info=0&description=0&rel=0";
+  f.title=b.getAttribute("aria-label").replace(/^Video abspielen: /,"Video: ");
+  f.allow="autoplay; encrypted-media; fullscreen; picture-in-picture";
+  f.allowFullscreen=true;
+  b.replaceWith(f);
+});
 /* Nur echte http(s)-Links als Quelle zulassen */
 function safeUrl(u){
   if(!u) return "";
