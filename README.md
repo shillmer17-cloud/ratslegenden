@@ -45,3 +45,15 @@ Nach dem Dreh einfach den Video-Link bei der Meldung eintragen; der Bot nimmt si
 
 Jeder Push auf `main` veröffentlicht die Seite automatisch (Reiter „Actions“ auf GitHub zeigt den Fortschritt).
 Ist `data/news.json` fehlerhaft, bricht die Veröffentlichung ab und die alte Version bleibt online.
+
+## Automatischer Abgleich mit den Videos (alle 30 Minuten)
+
+`scripts/abgleich.mjs` läuft über die Windows-Aufgabe „Ratslegenden Website-Abgleich“ (unsichtbar gestartet von `scripts/abgleich-starten.vbs`):
+
+- liest `abgleich/reels.json` (schreibt das Video-Studio beim Ablegen in „Heute hochladen“; nicht im Repository),
+- prüft das TikTok-Profil @sheeviltv und ordnet die Reels zu (erste Zeile der Beschreibung oder Videolänge),
+- legt für jedes Reel einen Eintrag in `data/news.json` an oder findet die Meldung über die Quelle und trägt den TikTok-Link ins Feld `video` ein,
+- entfernt verfilmte Meldungen aus `DREHLISTE.md`, prüft mit `check-news.mjs`, committet und pusht,
+- löscht in „Heute hochladen“ (Unterordner News/Tipps) die Dateien vom Vortag und schreibt `Status.txt`.
+
+Von Hand testen ohne Veröffentlichung: `node scripts/abgleich.mjs --ohne-push`. Protokoll: `abgleich/abgleich.log`.
