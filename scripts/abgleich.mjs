@@ -97,19 +97,25 @@ async function main() {
   const belegt = new Set([...abgleich.reels.map((r) => r.tiktok), ...news.map((n) => n.video)].filter(Boolean).map((l) => l.match(/(\d{15,})/)?.[1]));
 
   for (const reel of abgleich.reels.filter((r) => !r.tiktok)) {
-    const marke = reel.reihe === "news" ? "EVILS BLIZZNEWS" : "EVILS BLIZZTIPPS";
-    const kandidaten = videos.filter((v) => !belegt.has(v.id) && v.zeit >= tagStart(reel.datum) && v.desc.includes(marke));
-    // a) erste Zeile der Beschreibung (vor dem festen Block) passt zu Titel/Akzent
-    const woerter = norm(`${reel.titel} ${reel.akzent}`).split(" ").filter((w) => w.length >= 3);
+    // Marke egal ob BLIZZNEWS/Blizztipps, groß/klein – die Beschreibungen werden von Hand eingetippt
+    const kandidaten = videos.filter((v) => !belegt.has(v.id) && v.zeit >= tagStart(reel.datum) && /evils\s*blizz/i.test(v.desc));
+    // a0) Dateiname "JJJJ-MM-TT News N" / "… Tipp N" steht in der Beschreibung → eindeutig
+    const kennung = reel.datei ? path.basename(reel.datei).match(/(\d{4}-\d{2}-\d{2} \S+ \d+)\.mp4$/)?.[1] : null;
+    const perKennung = kennung ? kandidaten.filter((v) => new RegExp(`${kennung}(?!\\d)`).test(v.desc)) : [];
+    // a) Kopf der Beschreibung (vor dem festen Block) passt zu Titel/Akzent, Website-Titel oder Dateiname
+    const wl = (s) => norm(s || "").split(" ").filter((w) => w.length >= 3 && !/^\d+$/.test(w));
+    const texte = [`${reel.titel} ${reel.akzent}`, reel.website, reel.datei && path.basename(reel.datei, ".mp4")].filter(Boolean).map(wl);
     const perText = kandidaten.filter((v) => {
-      const kopf = norm(v.desc.split(/🔥|💡/)[0]);
-      if (!kopf || !woerter.length) return false;
-      return woerter.filter((w) => kopf.includes(w)).length / woerter.length >= 0.6;
+      const kopf = wl(v.desc.split(/🔥|💡|⚔|evils\s*blizz/i)[0]);
+      if (!kopf.length) return false;
+      return texte.some((t) => t.length && (t.filter((w) => kopf.includes(w)).length / t.length >= 0.6
+        || kopf.filter((w) => t.includes(w)).length / kopf.length >= 0.8));
     });
     // b) Videolänge (TikTok rechnet leicht um, daher ±0,35 s)
     const perLaenge = reel.dauer ? kandidaten.filter((v) => { const d = dauerTT(v); return d && Math.abs(d - reel.dauer) <= 0.35; }) : [];
     let treffer = null, wie = "";
-    if (perText.length === 1) { treffer = perText[0]; wie = "Beschreibung"; }
+    if (perKennung.length === 1) { treffer = perKennung[0]; wie = "Dateiname"; }
+    else if (perText.length === 1) { treffer = perText[0]; wie = "Beschreibung"; }
     else if (perLaenge.length === 1) { treffer = perLaenge[0]; wie = "Videolänge"; }
     else if (perText.length > 1 || perLaenge.length > 1) log(`HINWEIS ${reel.id}: mehrere TikTok-Videos passen – bitte Link von Hand nennen.`);
     if (treffer) {

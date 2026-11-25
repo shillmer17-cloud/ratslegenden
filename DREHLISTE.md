@@ -9,21 +9,6 @@ Stand: 2026-11-25
 
 ---
 
-## 2026-11-25 · Patch · Hotfix gegen lange Schlachtfeld-Wartezeiten auf EU-PvE-Servern
-
-**Aufhänger:** „Ewig in der Schlachtfeld-Warteschlange gehangen? Blizzard hat den Grund gefunden!“
-
-- Betroffen: Spieler auf einem der Server, die dem europäischen PvE-Regelset zugrunde liegen.
-- Fehler: Sie wurden bei der Schlachtfeld-Vermittlung fälschlich der russischen Region zugeordnet.
-- Folge: deutlich längere Warteschlangen.
-- Der Hotfix lief schon in der Nacht zum Dienstag, wirkt aber erst voll mit einem Serverneustart.
-- EU-Server waren dafür ab 3 Uhr offline, Ende war für etwa 4 Uhr geplant.
-- Blizzard erwartet kürzere Wartezeiten nach den nächsten Neustarts in Europa.
-
-Quelle: https://www.pcgameshardware.de/World-of-Warcraft-Forever-Spiel-78891/News/Server-Down-Wartung-25-November-Patch-Notes-Hotfix-1560996/
-
----
-
 ## 2026-11-24 · Forever · Lockboxen: Reinspähen soll zurückkommen
 
 **Aufhänger:** „Ihr habt euch gewundert, warum ihr nicht mehr in Lockboxen schauen könnt? Das steckt dahinter!“
