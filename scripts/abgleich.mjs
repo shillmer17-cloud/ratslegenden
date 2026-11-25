@@ -203,6 +203,13 @@ async function main() {
     for (const r of heutige) zeilen.push(`${r.tiktok ? "✓ auf TikTok" : "✗ noch nicht auf TikTok"}  ${r.reihe === "news" ? "News" : "Tipps"} ${r.nummer}: ${r.titel} – ${r.akzent}${r.tiktok ? "  " + r.tiktok : ""}`);
     const offen = abgleich.reels.filter((r) => r.datum < heute && !r.tiktok);
     if (offen.length) zeilen.push("", "Ältere Reels ohne TikTok-Video:", ...offen.map((r) => `✗ ${r.datum} ${r.titel} – ${r.akzent}`));
+    // Jede Website-News soll ein Video bekommen: News ohne Video und ohne abgelegtes Reel auflisten
+    const mitReel = new Set(abgleich.reels.map((r) => r.website).filter(Boolean));
+    const ohneVideo = news.filter((n) => n.video === "" && !mitReel.has(n.title) && ["Forever", "Patch", "Event"].includes(n.tag));
+    if (ohneVideo.length) {
+      zeilen.push("", "Website-News ohne Video (brauchen noch ein Reel):", ...ohneVideo.map((n) => `• ${n.date} ${n.title}`));
+      log(`Website-News ohne Video/Reel: ${ohneVideo.length}`);
+    }
     zeilen.push("", "Website: https://shillmer17-cloud.github.io/ratslegenden/ · Protokoll: website/abgleich/abgleich.log");
     fs.writeFileSync(path.join(HEUTE, "Status.txt"), zeilen.join("\r\n") + "\r\n");
   }
