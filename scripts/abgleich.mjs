@@ -136,8 +136,11 @@ async function main() {
     if (!eintrag && reel.quellen?.length) {
       const kerne = new Set(reel.quellen.map(urlKern));
       const nrs = new Set(reel.quellen.flatMap(nummern));
-      eintrag = news.find((n) => n.source && kerne.has(urlKern(n.source)))
-        ?? news.find((n) => n.source && tagStart(n.date) >= new Date(tagStart(reel.datum) - 3 * 864e5) && nummern(n.source).some((x) => nrs.has(x)));
+      // Meldungen mit Video oder die einem anderen Reel gehören, sind vergeben (Blizzard nutzt für alle Hotfixes denselben Artikel)
+      const vergeben = new Set(abgleich.reels.filter((r) => r !== reel && r.website).map((r) => r.website));
+      const frei = news.filter((n) => n.source && !n.video && !vergeben.has(n.title));
+      eintrag = frei.find((n) => kerne.has(urlKern(n.source)))
+        ?? frei.find((n) => tagStart(n.date) >= new Date(tagStart(reel.datum) - 3 * 864e5) && nummern(n.source).some((x) => nrs.has(x)));
     }
     if (!eintrag) {
       let titel = `${reel.titel}: ${reel.akzent}`;
