@@ -23,17 +23,3 @@ Stand: 2026-11-26
 Quelle: https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040
 
 ---
-
-## 2026-11-26 · Patch · Offenbarung generft: Kanal-Zauber kritten nicht mehr dauernd
-
-**Aufhänger:** „Die Krit-Maschine für Magier und Druiden ist kaputt – und zwar mit Absicht.“
-
-- Offenbarung (Revelation): Ist ein Angriff kein Krit, trifft der nächste garantiert kritisch; DoTs zählen nicht
-- Problem: Bei kanalisierten Flächenzaubern wie Blizzard und Hurrikan kritte dadurch jeder Tick
-- Hotfix am Abend des 24. November: Kanal-Ticks kritten nicht mehr alle
-- Einzelziel-Angriffe und Heilungen bekommen den Krit weiterhin – die Verzauberung bleibt stark, z. B. für Paladine mit Illumination
-- Folge laut PC Games: Manche Caster greifen wieder zur klassischen Zauberkraft-Verzauberung, Verzauberer verkaufen weniger Offenbarung
-
-Quelle: https://www.pcgames.de/World-of-Warcraft-Spiel-42971/News/WoW-Forever-Offenbarung-Nerf-1561008/
-
----
