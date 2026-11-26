@@ -8,7 +8,7 @@ Gehostet mit GitHub Pages, News werden täglich von einem Bot ergänzt.
 | Datei | Zweck |
 |---|---|
 | `index.html` | Die komplette Seite (Design, Streamplan, Gilde, Kooperation, Setup) |
-| `data/news.json` | Alle News; die Seite zeigt die neuesten 30 |
+| `data/news.json` | Alle News; die Seite zeigt nur die der letzten 3 Tage (`NEWS_TAGE` in `index.html`), ältere bleiben in der Datei |
 | `BOT.md` | Regeln für den täglichen News-Bot |
 | `DREHLISTE.md` | Spickzettel für „Evils Blizznews“: alle noch nicht verfilmten Meldungen mit Stichpunkten |
 | `scripts/check-news.mjs` | Prüft `data/news.json` auf gültiges JSON und Pflichtfelder |
