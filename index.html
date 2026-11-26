@@ -131,7 +131,14 @@ nav a.cta:hover{background:var(--btn-hi);color:#fff}
 .chip:hover{color:var(--text)}
 .chip[aria-pressed="true"]{background:var(--btn);border-color:var(--gild-dim);color:#fff;box-shadow:0 0 14px rgba(179,22,29,.45)}
 .chip:hover{border-color:var(--gild-dim)}
-.news{display:grid;gap:10px}
+.news{display:grid;gap:10px;position:relative}
+/* Scroll-Fenster: zeigt 2 Meldungen, der Rest wird darin gescrollt (Höhe setzt fitNewsWindow) */
+.news.scroll{overflow-y:auto;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin;scrollbar-color:var(--gild-dim) transparent}
+.news.scroll.more{-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent)}
+.news.scroll::-webkit-scrollbar{width:8px}
+.news.scroll::-webkit-scrollbar-thumb{background:var(--gild-dim);border-radius:99px}
+.news-more{margin:8px 0 0;font:700 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gild);text-align:center}
+.news-more[hidden]{display:none}
 .post{position:relative;display:grid;grid-template-columns:62px 1fr;gap:14px;padding:14px 16px 14px 20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .15s}
 .post::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gild),var(--btn))}
 .post:hover{border-color:var(--gild-dim)}
@@ -348,6 +355,7 @@ footer a:hover{color:var(--text)}
       <div class="chips" role="group" aria-label="News filtern" id="chips"></div>
     </div>
     <div class="news" id="newsList"></div>
+    <p class="news-more" id="newsMore" hidden></p>
     <p class="hint">Neue Meldungen kommen jeden Tag automatisch dazu, jeweils mit Link zur Quelle.</p>
   </div>
 </section>
@@ -547,7 +555,29 @@ function renderNews(){
       var clip=tt?'<div class="clip"><div class="clip-screen"><button class="clip-play" type="button" data-tt="'+tt+'" aria-label="Video abspielen: '+esc(n.title)+'"><img src="img/videos/'+tt+'.webp" alt="" loading="lazy" width="360" height="640" onerror="this.remove()"></button></div><span class="clip-note">Beim Abspielen wird TikTok geladen (<a href="datenschutz.html">Datenschutz</a>).</span></div>':'';
       return '<article class="post'+(n.date===today?' today':'')+(tt?' has-vid':'')+'"><div class="date"><b>'+parseInt(p[2],10)+'</b><span>'+MON[parseInt(p[1],10)-1]+'</span></div><div><span class="tag">'+esc(n.tag)+(n.date===today?' · Heute':'')+'</span><h3>'+esc(n.title)+'</h3><p>'+esc(n.text)+'</p>'+((src||vid)?'<div class="post-foot">'+(src?'<a class="src" href="'+esc(src)+'" target="_blank" rel="noopener noreferrer">Quelle</a>':'')+vid+'</div>':'')+'</div>'+clip+'</article>';
     }).join("");
+  list.scrollTop=0;fitNewsWindow();
 }
+/* Fensterhöhe = genau 2 Meldungen; weitere per Scrollen im Fenster */
+var NEWS_SICHTBAR = 2;
+function fitNewsWindow(){
+  var list=document.getElementById("newsList"), more=document.getElementById("newsMore");
+  var posts=list.querySelectorAll(".post");
+  if(posts.length<=NEWS_SICHTBAR){list.classList.remove("scroll","more");list.style.maxHeight="";more.hidden=true;return}
+  list.classList.add("scroll");
+  list.style.maxHeight=(posts[NEWS_SICHTBAR].offsetTop-10)+"px";
+  more.textContent="↓ Im Fenster scrollen: "+(posts.length-NEWS_SICHTBAR)+" weitere Meldungen";
+  more.hidden=false;newsScrolled();
+}
+function newsScrolled(){
+  var list=document.getElementById("newsList");
+  var unten=list.scrollTop+list.clientHeight>=list.scrollHeight-4;
+  list.classList.toggle("more",list.classList.contains("scroll")&&!unten);
+  document.getElementById("newsMore").style.visibility=unten?"hidden":"";
+}
+document.getElementById("newsList").addEventListener("scroll",newsScrolled,{passive:true});
+window.addEventListener("resize",function(){if(NEWS.length)fitNewsWindow()});
+/* Schriften laden nach: Höhen ändern sich, also neu messen */
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(NEWS.length)fitNewsWindow()});
 /* TikTok-Video-ID aus dem Link (nur dann gibt es eine Video-Karte) */
 function ttId(u){var m=typeof u==="string"&&u.match(/^https:\/\/(?:www\.)?tiktok\.com\/@[\w.]+\/video\/(\d{15,25})/);return m?m[1]:""}
 /* Klick auf eine Video-Karte: erst jetzt wird der TikTok-Player geladen */
@@ -560,6 +590,7 @@ document.addEventListener("click",function(e){
   f.allowFullscreen=true;
   var post=b.closest(".post"); if(post) post.classList.add("playing");
   b.replaceWith(f);
+  fitNewsWindow();
 });
 /* Nur echte http(s)-Links als Quelle zulassen */
 function safeUrl(u){
@@ -567,6 +598,7 @@ function safeUrl(u){
   try{var x=new URL(String(u));return (x.protocol==="https:"||x.protocol==="http:")?x.href:""}catch(e){return ""}
 }
 function newsMessage(msg){
+  var l=document.getElementById("newsList");l.classList.remove("scroll","more");l.style.maxHeight="";document.getElementById("newsMore").hidden=true;
   document.getElementById("newsList").innerHTML='<p class="news-msg">'+esc(msg)+'</p>';
 }
 function loadNews(){
