@@ -126,5 +126,21 @@
     "text": "Ihr wollt schneller leveln, ohne länger zu spielen? Dann esst euch satt. Gekochtes Essen gibt euch den Buff Satt. Und der bringt laut Warcraft Tavern fünf Prozent mehr Erfahrung für jeden besiegten Gegner.",
     "source": "https://www.warcrafttavern.com/forever/news/cooked-food-provides-an-xp-buff-in-world-of-warcraft-forever",
     "video": ""
+  },
+  {
+    "date": "2026-11-26",
+    "tag": "Patch",
+    "title": "Offenbarung generft: Kanal-Zauber kritten nicht mehr dauernd",
+    "text": "Die Waffenverzauberung Offenbarung war für Caster mit kanalisierten Flächenzaubern wie Blizzard oder Hurrikan viel zu stark, weil dabei jeder einzelne Tick kritisch traf. Ein Hotfix vom Abend des 24. November hat genau das abgestellt. Auf Einzelziel-Angriffe und Heilungen wirkt der garantierte Krit laut PC Games weiterhin, die Verzauberung bleibt also stark – nur nicht mehr absurd.",
+    "source": "https://www.pcgames.de/World-of-Warcraft-Spiel-42971/News/WoW-Forever-Offenbarung-Nerf-1561008/",
+    "video": ""
+  },
+  {
+    "date": "2026-11-26",
+    "tag": "Patch",
+    "title": "Hotfix 25.11. neu: Schurkengifte vorerst seelengebunden",
+    "text": "Im Hotfix vom 25. November steckt noch mehr: Alle Schurkengifte und Blendungspulver sind vorübergehend beim Aufheben gebunden, solange Blizzard einen Bug behebt. Weitergeben ist damit erst mal nicht drin. Jäger dürfen sich freuen: Tiere hatten bei normalen Nahkampfangriffen 0 % Krit-Chance, das ist behoben, und die beschworenen Falken der Tierherrschaft greifen jetzt auch an, wenn das Tier auf Passiv steht.",
+    "source": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+    "video": ""
   }
 ]
