@@ -504,7 +504,8 @@ footer a:hover{color:var(--text)}
 <script>
 /* News kommen aus data/news.json (pflegt der tägliche Bot). Der Streamplan steht hier. */
 var NEWS = [];
-var NEWS_MAX = 30;
+var NEWS_MAX = 30;   /* höchstens so viele Meldungen */
+var NEWS_TAGE = 3;   /* nur Meldungen von heute und den 2 Tagen davor (ältere bleiben in news.json, werden nur ausgeblendet) */
 var SITE_URL = "https://shillmer17-cloud.github.io/ratslegenden/";
 /* Streamplan: Wochentag 0 = Sonntag. Zeiten sind Platzhalter. */
 var PLAN = {
@@ -569,10 +570,12 @@ function loadNews(){
     .then(function(r){if(!r.ok) throw new Error("HTTP "+r.status);return r.json()})
     .then(function(data){
       if(!Array.isArray(data)) throw new Error("Kein Array");
-      NEWS=data.filter(function(n){return n&&/^\d{4}-\d{2}-\d{2}$/.test(n.date)&&n.title})
+      var ab=new Date();ab.setDate(ab.getDate()-(NEWS_TAGE-1));
+      var abIso=ab.getFullYear()+"-"+String(ab.getMonth()+1).padStart(2,"0")+"-"+String(ab.getDate()).padStart(2,"0");
+      NEWS=data.filter(function(n){return n&&/^\d{4}-\d{2}-\d{2}$/.test(n.date)&&n.title&&n.date>=abIso})
         .sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0})
         .slice(0,NEWS_MAX);
-      if(!NEWS.length){newsMessage("Noch keine News da. Schau morgen wieder vorbei!");return}
+      if(!NEWS.length){newsMessage("In den letzten Tagen gab es keine neuen News. Schau morgen wieder vorbei!");return}
       renderChips();renderNews();
     })
     .catch(function(){
