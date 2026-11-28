@@ -149,7 +149,7 @@
     "title": "Questliste aufräumen: Jetzt ohne Questie",
     "text": "Quests Zone Focus hat ein Update für WoW Forever bekommen. Laut Entwickler läuft das Addon jetzt auch mit der normalen Questliste am Bildschirmrand. Bisher brauchte es dafür Questie.",
     "source": "https://www.curseforge.com/wow/addons/quests-zone-focus",
-    "video": ""
+    "video": "https://www.tiktok.com/@sheeviltv/video/7712752088450616598"
   },
   {
     "date": "2026-11-27",
@@ -157,6 +157,54 @@
     "title": "Angeln mit Chummy: Eine Taste reicht",
     "text": "Wollt ihr in WoW Forever angeln, ohne jedes Mal den Schwimmer mit der Maus zu suchen? Laut Entwickler geht das mit dem neuen Addon Chummy per Leertaste.",
     "source": "https://www.curseforge.com/wow/addons/chummy",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7712752294453972246"
+  },
+  {
+    "date": "2026-11-27",
+    "tag": "Forever",
+    "title": "Begleiter-Fix: Krits sind zurück",
+    "text": "Blizzard hat im Hotfix vom fünfundzwanzigsten November einen Fehler bei den Begleitern von Jägern und Hexenmeistern behoben. Ihre normalen Nahkampfangriffe hatten eine kritische Trefferchance von null Prozent. Das heißt, bei diesen Schlägen fiel der zusätzliche Schaden eines kritischen Treffers komplett weg. Nach dem Fix können die normalen Hiebe wieder kritisch treffen.",
+    "source": "https://news.blizzard.com/en-gb/article/24315281/wow-forever-hotfixes-november-25-2026",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7712752097581632790"
+  },
+  {
+    "date": "2026-11-27",
+    "tag": "Forever",
+    "title": "Gerufene Falken: Greifen trotzdem an",
+    "text": "Spielt ihr Jäger auf Tierherrschaft? Blizzard hat im Hotfix vom fünfundzwanzigsten November das Verhalten der gerufenen Falken geändert. Wenn euer Begleiter auf passiv steht, greifen die Falken jetzt trotzdem das Ziel an, auf das ihr sie gerufen habt. Wenn die Falken gerade kein Ziel angreifen, nehmen sie euer aktuelles Ziel.",
+    "source": "",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7712752082104913175"
+  },
+  {
+    "date": "2026-11-27",
+    "tag": "Forever",
+    "title": "Avatar von Hakkar: Erscheint wieder",
+    "text": "Wenn ihr den Versunkenen Tempel in WoW Forever lauft, gibt es einen Fix für den Avatar von Hakkar. Blizzard hat am fünfundzwanzigsten November einen Fehler behoben, bei dem der Boss manchmal gar nicht erschien. Das ist besonders ärgerlich, wenn eure Gruppe extra wegen dieses Kampfes in den Tempel geht. Mit dem Hotfix soll der Avatar wieder wie vorgesehen auftauchen.",
+    "source": "",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7712752105215233302"
+  },
+  {
+    "date": "2026-11-28",
+    "tag": "Forever",
+    "title": "Forever Suite: Neue Reiteransicht",
+    "text": "Die WoW Forever Suite hat ein Update. Wenn ihr in den Einstellungen bisher lange nach einer Funktion gesucht habt, könnt ihr laut Entwickler jetzt eine Ansicht mit Reitern ausprobieren. Öffnet in der Suite den Bereich für das Aussehen. Dort könnt ihr die Vorschau für die Reiter einschalten. Auf der Startseite bekommt ihr Schnellzugriffe. Nachkaufen, Einkaufsliste und Vorräte prüfen liegen in derselben Gruppe.",
+    "source": "https://www.curseforge.com/wow/addons/wow-forever-suite/files/9858435",
+    "video": "https://www.tiktok.com/@sheeviltv/video/7713106898811129110"
+  },
+  {
+    "date": "2026-11-28",
+    "tag": "Video",
+    "title": "Ruhebonus sammeln: Beim Ausloggen",
+    "text": "Macht ihr in WoW Forever Feierabend? Dann parkt euren Charakter im Gasthaus oder in einer Hauptstadt. Laut Warcraft Tavern sammelt ihr da auch dann Ruhebonus, wenn ihr schon ausgeloggt seid. Schaut vor dem Ausloggen auf euer Porträt. Seht ihr die kleinen Zett, steht ihr in einem Ruhebereich. Beim nächsten Einloggen zeigt euch der blaue Erfahrungsbalken, dass ihr noch Bonus übrig habt.",
+    "source": "https://www.warcrafttavern.com/forever/guides/experience/",
+    "video": ""
+  },
+  {
+    "date": "2026-11-28",
+    "tag": "Video",
+    "title": "Ruhestein binden: Kürzere Wege",
+    "text": "Lauft ihr in WoW Forever nach jeder Questrunde den ganzen Weg ins Dorf zurück? Dann schaut beim Gastwirt vorbei und bindet euren Ruhestein an das Gasthaus, das ihr gerade als Ausgangspunkt nutzt. Sprecht den Gastwirt an und wählt die Option, das Gasthaus zu eurem Zuhause zu machen. Wenn ihr den Ruhestein aus der Tasche benutzt, bringt er euch zu diesem Gasthaus zurück.",
+    "source": "https://news.blizzard.com/en-us/article/24315280/new-players-starter-guide-welcome-to-world-of-warcraft-forever",
     "video": ""
   }
 ]
